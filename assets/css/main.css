@@ -1,0 +1,222 @@
+body{
+	background-color: #ededed;
+	font-family: 'Oswald';
+	position: relative;
+	margin-top: 0;
+}
+/*======================================================================
+##		Global Settings
+=======================================================================*/
+.btn-robot, p{
+	font-family: 'Roboto';
+	line-height: 1.5;
+	letter-spacing: 1px;
+	font-weight: 300;
+}
+.mt0{
+	margin-top: 0;
+}
+.thin{
+	font-weight: 300;
+}
+.c-table{
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+.c-cell{
+	display: table-cell;
+	vertical-align: middle;
+}
+.title-box{
+	text-align: center;
+	padding: 100px 0 50px;
+	text-transform: uppercase;
+}
+.title-box p{
+	margin-bottom: 0;
+}
+.title{
+	font-weight: 300;
+	color: #999;
+	font-size: 36px;
+	letter-spacing: 2px;
+}
+.title.mt0{
+	text-transform: capitalize;
+	font-weight: 400;
+	color: #444;
+}
+.title span{
+	color: #444;
+}
+.btn-robot{
+	border-radius: 0;
+	background-color: #fa8212;
+	color: #fff;
+	text-transform: uppercase;
+	border-color: transparent;
+	padding: 5px 15px;
+	transition: all 0.4s ease-in-out;
+	letter-spacing: 1px;
+	font-weight: 300;
+	margin-top: 15px;
+	text-shadow: 2px 2px 4px #000000;
+}
+.btn-robot:hover{
+	background-color: transparent;
+	color: #fa8212;
+	border-color: #fabe12;
+}
+
+/*======================================================================
+##		Header Section
+=======================================================================*/
+.site-header-bg{
+	width: 100%;
+	background-color: #111;
+	z-index: 1;
+	padding: 30px 0;
+	color: #fff;
+	text-transform: uppercase;
+	font-family: 'Roboto';
+}
+.site-header-bg .input-group{
+	padding-top: 10px;
+}
+.site-header-bg .form-control{
+	border-radius: 0;
+	background-color: transparent;
+}
+.site-header-bg .input-group .btn{
+	text-transform: uppercase;
+	border-radius: 0;
+}
+.site-header-bg .btn-robot{
+	margin-top: 0;
+	padding-bottom: 6px;
+}
+/*======================================================================
+##		Header Section
+=======================================================================*/
+.main-header{
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	letter-spacing: 3px;
+	background: #111;
+	position: relative;
+}
+.main-header p{
+	font-weight: 300;
+	font-size: 18px;
+	letter-spacing: 6px;
+}
+.header-title{
+	font-weight: 700;
+}
+.header-title .thin{
+	letter-spacing: 6px;
+}
+.intro{
+	padding: 200px 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: -90px;
+    z-index: 11;
+    position: relative;
+}
+
+.navbar{
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.navbar-default{
+	border-color: #262626;
+    background-color: #111;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	color: #fa8212;
+	background-color: transparent;
+}
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+.navbar .navbar-collapse {
+    text-align: center;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	color: #fff;
+}
+
+/*======================================================================
+##		Footer widget Section
+=======================================================================*/
+.footer-widget{
+	padding: 80px 0;
+	border-bottom: 1px solid #111;
+}
+.footer-widget .section-bg{
+	background-color: #ebebeb;
+	text-align: center;
+	text-transform: capitalize;
+}
+.footer-widget h3{
+	border-bottom: 1px solid rgba(153, 153, 153, 0.3);
+	color: #999;
+	padding-bottom: 25px;
+	margin-bottom: 15px;
+	font-weight: 300;
+	letter-spacing: 2px;
+}
+.footer-widget ul{
+	padding-left: 0;
+}
+.footer-widget ul li{
+	list-style-type: none;
+	padding: 7px 0;
+}
+.footer-widget ul li:before{
+	content: "\f363";
+	font-family: 'ionicons';
+	padding-right: 5px;
+	font-size: 14px;
+	color: #999;
+}
+.footer-widget ul li a{
+	color: #999;
+	font-family: 'Roboto';
+	font-size: 14px;
+	font-weight: 500;
+}
+.widget-img-box{
+	margin-top: 30px;
+}
+.widget-img{
+	width: 49%;
+	display: inline-block;
+}
+.footer{
+	padding: 10px 0 20px;
+}
+.footer h3, .footer a{
+	color: #999;
+	font-weight: 300;
+	letter-spacing: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
