@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 //OMDP API Ajax call
 var movie = "Guardians of the Galaxy";
-var queryURL = "http://www.omdbapi.com/?t="+ movie +"&plot=long&apikey=6316fd3";
+var queryURL = "https://www.omdbapi.com/?t="+ movie +"&plot=long&apikey=6316fd3";
 
 
 $.ajax({
