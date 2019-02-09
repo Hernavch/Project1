@@ -59,3 +59,14 @@ $.ajax({
 
 
 }); //End of OMDP API Ajax call
+
+// Initialize tooltip component (radio buttons)
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  
+  // Initialize popover component
+  $(function () {
+    $('[data-toggle="popover"]').popover();
+    
+  }); //End of radio buttons initialization
