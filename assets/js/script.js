@@ -25,9 +25,26 @@ $(document).ready(function(){
             Classy Spacer ;)
 -----------------------------------------*/
 
+//Search Function On click function
+$("#searchbtn").on("click", function(){ 
+    event.preventDefault();
+var type;
+// Movie Radio
+if ($("#movieradio").checked){
+    type="movie"
+    
+}
+else{
+    type="person"
+}
+console.log($("#movieradio").checked);
+
+
+
 //OMDP API Ajax call
-var movie = "Guardians of the Galaxy";
-var queryURL = "https://www.omdbapi.com/?t="+ movie +"&plot=long&apikey=6316fd3";
+var search = $("#user-input").val();
+
+var queryURL = "http://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
 
 
 $.ajax({
@@ -35,30 +52,21 @@ $.ajax({
     method:"GET"
 
 }).then(function(response) {
-    // console.log(response);
+    console.log(response.results);
 
-// Get Title, Actors, Poster, Plot and Genre
-      var title= response.Title;
-      console.log(title);
+    // for()
 
-      var actors= response.Actors;
-      console.log(actors);
 
-      var poster= response.Poster;
-      console.log(poster);
-
-      var plot = response.Plot;
-      console.log(plot);
-
-      var genre = response.Genre;
-      console.log(genre);
       
-
 
 // insert plot into card
 
-
 }); //End of OMDP API Ajax call
+
+//  AJAX Movie Query S
+
+
+});
 
 // Initialize tooltip component (radio buttons)
 $(function () {
