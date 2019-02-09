@@ -200,7 +200,7 @@ label
 	height:40px;
 	background-color:#fa8212;
 	width:100%;
-	font-family: tahoma;
+	font-family: "Roboto", 'Oswald';
 	font-weight:bold;
 	font-size:25px;
 	
@@ -215,7 +215,7 @@ label
 	margin-top:10px;
 	font-weight:bold;
 	font-size:30px;
-	font-family: tahoma;
+	font-family: 'Roboto', 'Oswald';
   }
   
   
@@ -308,7 +308,15 @@ label
 	background-color:white;
 	background-size: 11%;
 	background-position: 50% 50%;
-  }
+	}
+	
+
+	.box-post {
+		float: left;
+		margin: 0 1.5%;
+		width: 63%;
+	}
+	
 /*======================================================================
 ##		Footer widget Section
 =======================================================================*/
