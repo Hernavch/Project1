@@ -100,7 +100,7 @@ $("#signUp").on("click", function () {
 $("#signIn").on("click", function() {
     event.preventDefault();
     signForm();
-    $("#signForm").append("<p>Please eneter your name and password.</p>");
+    $("#signForm").append("<p>Please enter your name and password.</p>");
     // When a username and password have both been submitted
     $("#submit").on("click", function() {
         event.preventDefault();
