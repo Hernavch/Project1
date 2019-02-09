@@ -28,37 +28,41 @@ $(document).ready(function(){
 //Search Function On click function
 $("#searchbtn").on("click", function(){ 
     event.preventDefault();
-var type;
+    var type;
 // Movie Radio
-if ($("#movieradio").checked){
+    if ($("#movieradio").is(":checked")){
     type="movie"
-    
-}
-else{
-    type="person"
-}
-console.log($("#movieradio").checked);
+    }
+    else{
+        type="person"
+    }
+    console.log($("#movieradio").checked);
 
 
 
 //OMDP API Ajax call
-var search = $("#user-input").val();
+    var search = $("#user-input").val();
 
-var queryURL = "http://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
+    var queryURL = "http://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
 
 
-$.ajax({
-    url:queryURL,
-    method:"GET"
+    $.ajax({
+        url:queryURL,
+        method:"GET"
 
-}).then(function(response) {
-    console.log(response.results);
+    }).then(function(response) {
+        console.log(response.results);
+    // for loop for all data pulled up
+        // for(var=i)
 
-    // for()
+        console.log(response.results[0].name);
+        console.log(response.results[0].profile_path);
+        console.log(response.results[0].poster_path);
+
+        
 
 
       
-
 // insert plot into card
 
 }); //End of OMDP API Ajax call
