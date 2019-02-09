@@ -51,17 +51,23 @@ $("#searchbtn").on("click", function(){
         method:"GET"
 
     }).then(function(response) {
-        console.log(response.results);
-    // for loop for all data pulled up
-        // for(var=i)
-
-        console.log(response.results[0].name);
-        console.log(response.results[0].profile_path);
-        console.log(response.results[0].poster_path);
-
+        // console.log(response.results[0].title);
+        var information= response.results;
         
+       
+// For loop through the results 
+        for(var i=0;i < 12; i++){
 
-
+             if (type=== "person"){
+// IF STATEMENT distiguishing path to images etc
+                console.log(information[i].name);       
+             }
+             else {
+                console.log(information[i].title);
+            }
+        }
+        
+    
       
 // insert plot into card
 
