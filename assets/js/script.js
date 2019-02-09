@@ -36,14 +36,14 @@ $("#searchbtn").on("click", function(){
     else{
         type="person"
     }
-    console.log($("#movieradio").checked);
+    // console.log($("#movieradio").checked);
 
 
 
 //OMDP API Ajax call
     var search = $("#user-input").val();
 
-    var queryURL = "http://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
+    var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
 
 
     $.ajax({
