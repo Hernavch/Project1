@@ -68,7 +68,47 @@ body{
 	color: #fa8212;
 	border-color: #fabe12;
 }
-
+.form-radio
+{
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     display: inline-block;
+     position: relative;
+     background-color: #f1f1f1;
+     color: #111;
+     top: 10px;
+     height: 30px;
+     width: 30px;
+     border: 0;
+     border-radius: 50px;
+     cursor: pointer;     
+     margin-right: 7px;
+     outline: none;
+}
+.form-radio:checked::before
+{
+     position: absolute;
+     font-family: 'Roboto';
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.form-radio:hover
+{
+     background-color: #fa8212;
+}
+.form-radio:checked
+{
+     background-color: #fa8212;
+}
+label
+{
+     font-family: 'Roboto', 'Oswald';
+     color: #fa8212;
+	 cursor: pointer;
+ } 
 /*======================================================================
 ##		Header Section
 =======================================================================*/
