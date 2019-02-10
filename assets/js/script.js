@@ -51,7 +51,7 @@ $("#searchbtn").on("click", function(){
         method:"GET"
 
     }).then(function(response) {
-        // console.log(response.results[0].title);
+        // console.log(response.results);
         var information= response.results;
         
        
@@ -60,10 +60,15 @@ $("#searchbtn").on("click", function(){
 
              if (type=== "person"){
 // IF STATEMENT distiguishing path to images etc
-                console.log(information[i].name);       
+                var actorName= information[i].name;
+                var actorPic=information[i].profile_path;
+                var filmography= information[i].known_for;
+                      //For loop through known for   
              }
              else {
-                console.log(information[i].title);
+                var title= information[i].title;
+                var poster= information[i].poster_path;
+                var movieSum=information[i].overview;
             }
         }
         
