@@ -51,7 +51,7 @@ $("#searchbtn").on("click", function(){
         method:"GET"
 
     }).then(function(response) {
-        // console.log(response.results[0].title);
+        // console.log(response.results);
         var information= response.results;
         
        
