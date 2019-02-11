@@ -94,17 +94,9 @@ $(function () {
     
   }); //End of radio buttons initialization
 
-
-  /*=======================================================
-    ##CLASSY AND NOT AT ALL OVER THE TOP LOGIN
-  =======================================================*/
-
-  $(window).load(function(){
-
-    $('.containmain').slideDown(700);
-  
-  });
-  
+/*==========================================
+        LOGIN WINDOW (SIGN IN)
+===========================================*/
   $(window).ready(function(){
     $(".topform , .bottomform").focus(function() {
       $(this).css({'background-image': 'none'});
@@ -134,7 +126,7 @@ $(function () {
       $('.containmain').slideUp(function(){
      
       
-        $('.close').text("Open").addClass("not");
+        $('.close').text("Sign In").addClass("not");
       
       
       });
@@ -155,6 +147,66 @@ $(function () {
     });
    
     }
+    }); //End of Login Window (sign in)
+    
+    
+   /*==========================================
+        LOGIN WINDOW (SIGN UP)
+    ===========================================*/
+    
+    $(".topform2 , .bottomform2").focus(function() {
+      $(this).css({'background-image': 'none'});
+  });
+    
+    
+    if ($('.topform2').is(':empty')){
+    
+    $(".topform2").focusout(function(){
+     imageUrl = 'http://www.flaticon.com/png/256/16612.png';
+      $(this).css('background-image', 'url(' + imageUrl + ')'); 
+    });
+      
+    } else if ($('.topform2').not(':empty')){
+    
+       $(this).css('background-image', 'none'); 
+      
+    }
+    
+    
+      $(".bottomform2").focusout(function(){
+     imageUrl = 'http://www.flaticon.com/png/256/25239.png';
+      $(this).css('background-image', 'url(' + imageUrl + ')'); 
+    });
+   
+    $('.close2').click(function(){
+      $('.containmain2').slideUp(function(){
+     
+      
+        $('.close2').text("Sign Up").addClass("not");
+      
+      
+      });
+                                  
+                                 
+      
+      
     
     });
-    }); //END OF CLASSY AND NOT AT ALL OVER THE TOP LOGIN.
+    
+    
+    $("#close2").click(function(){
+    
+      if ($( "#close2" ).hasClass( "not" )){
+        $('.containmain2').slideDown(function(){
+   
+      $('.close2').text("Close").removeClass("not");
+    });
+   
+    }
+    
+    });
+
+    
+    
+    
+}); //End of Login Window (sign up)
