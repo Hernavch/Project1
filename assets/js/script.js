@@ -28,6 +28,7 @@ $(document).ready(function(){
 //Search Function On click function
 $("#searchbtn").on("click", function(){ 
     event.preventDefault();
+    
     var type;
 // Movie Radio
     if ($("#movieradio").is(":checked")){
@@ -44,7 +45,7 @@ $("#searchbtn").on("click", function(){
     var search = $("#user-input").val();
 
     var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
-
+    
 
     $.ajax({
         url:queryURL,
@@ -55,20 +56,48 @@ $("#searchbtn").on("click", function(){
         var information= response.results;
         
        
-// For loop through the results 
-        for(var i=0;i < 12; i++){
-
+        // For loop through the results 
+        for(var i=0;i < information.length; i++){
+            // $("carousel-"+ i).empty();
+             // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
-// IF STATEMENT distiguishing path to images etc
+
                 var actorName= information[i].name;
+                console.log(actorName);
                 var actorPic=information[i].profile_path;
-                var filmography= information[i].known_for;
-                      //For loop through known for   
+                var actorWorks= information[i].known_for;
+                      // //For loop to show actorswork  
+                      for(var j=0; j < actorWorks.length; j++){
+                        var actorMovie= actorWorks[j];
+                        // console.log(actorMovie.title);
+                        // console.log(actorMovie.poster_path);
+                        // console.log(actorMovie.overview);
+                      }
+
+
+                      
              }
+              // IF search is Movie 
              else {
+               
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
+
+                console.log(poster);
+
+                var posterImg= $("<img>");
+                posterImg.attr("id", "poster-"+ i);
+                posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + information[i].poster_path);
+
+                console.log(posterImg);
+                
+                $("#carousel-"+ i).empty().append(posterImg);
+               
+                              
+                // for loop to change id number for image
+              
+                
             }
         }
         
