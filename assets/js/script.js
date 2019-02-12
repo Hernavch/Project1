@@ -56,6 +56,7 @@ $("#searchbtn").on("click", function(){
         var information= response.results;
         
        
+<<<<<<< HEAD
         // For loop through the results 
         for(var i=0;i < 12; i++){
             // $("carousel-"+ i).empty();
@@ -107,6 +108,22 @@ $("#searchbtn").on("click", function(){
                 // for loop to change id number for image
               
                 
+=======
+// For loop through the results 
+        for(var i=0;i < 12; i++){
+
+             if (type=== "person"){
+// IF STATEMENT distiguishing path to images etc
+                var actorName= information[i].name;
+                var actorPic=information[i].profile_path;
+                var filmography= information[i].known_for;
+                      //For loop through known for   
+             }
+             else {
+                var title= information[i].title;
+                var poster= information[i].poster_path;
+                var movieSum=information[i].overview;
+>>>>>>> 7941b12599cc2fd3e17e3c8e658d22a99c2ccf96
             }
         }
         
