@@ -4,6 +4,26 @@ body{
 	position: relative;
 	margin-top: 0;
 }
+
+/*======================================================================
+##		Carousel
+=======================================================================*/
+@media only screen and (max-width: 600px) {
+	body {
+	  background-color: rgb(235, 218, 203);
+	}
+  }
+  #partner-slider {
+
+	background-image: url("assets/images/filmblank.png");
+	background-repeat: no-repeat;
+	background-color: #111;
+}
+
+.item {
+	padding: 10px 0px 10px 0px;
+	margin: auto;
+}
 /*======================================================================
 ##		Global Settings
 =======================================================================*/
@@ -30,7 +50,7 @@ body{
 }
 .title-box{
 	text-align: center;
-	padding: 100px 0 50px;
+	padding: 25px 0 50px;
 	text-transform: uppercase;
 }
 .title-box p{
@@ -52,7 +72,7 @@ body{
 }
 .btn-robot{
 	border-radius: 0;
-	background-color: #005c74;
+	background-color: #c8c8c8;
 	color: #fff;
 	text-transform: uppercase;
 	border-color: transparent;
@@ -61,12 +81,13 @@ body{
 	letter-spacing: 1px;
 	font-weight: 300;
 	margin-top: 15px;
-	text-shadow: 2px 2px 4px #000000;
+	text-shadow: #111;
+	
 }
 .btn-robot:hover{
 	background-color: transparent;
-	color: #005c74;
-	border-color: #fabe12;
+	color: #c8c8c8;
+	border-color: #111;
 }
 .form-radio
 {
@@ -75,8 +96,9 @@ body{
      appearance: none;
      display: inline-block;
      position: relative;
-     background-color: #005c74;
-     color: #111;
+	 background-color: #c8c8c8;
+	 text-shadow: 2px;
+     color: white;
      top: 10px;
      height: 30px;
      width: 30px;
@@ -97,16 +119,16 @@ body{
 }
 .form-radio:hover
 {
-     background-color: #fa8212;
+     background-color: #c8c8c8;
 }
 .form-radio:checked
 {
-     background-color: #fa8212;
+     background-color: #c8c8c8;
 }
 label
 {
      font-family: 'Roboto', 'Oswald';
-     color: #fa8212;
+     color: white;
 	 cursor: pointer;
  } 
 /*======================================================================
@@ -114,7 +136,7 @@ label
 =======================================================================*/
 .site-header-bg{
 	width: 100%;
-	background-color: #c8c8c8;
+	background-color: #005c74;
 	z-index: 1;
 	padding: 30px 0;
 	color: #fff;
@@ -198,7 +220,7 @@ label
 	background-color:black;
 	color:white;
 	height:40px;
-	background-color:#fa8212;
+	background-color:#c8c8c8;
 	width:100%;
 	font-family: tahoma;
 	font-weight:bold;
@@ -309,6 +331,8 @@ label
 	background-size: 11%;
 	background-position: 50% 50%;
   }
+
+
 /*======================================================================
 ##		Footer widget Section
 =======================================================================*/
