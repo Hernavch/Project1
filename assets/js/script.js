@@ -57,23 +57,31 @@ $("#searchbtn").on("click", function(){
         
        
         // For loop through the results 
-        for(var i=0;i < information.length; i++){
+        for(var i=0;i < 12; i++){
             // $("carousel-"+ i).empty();
              // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
 
-                var actorName= information[i].name;
-                console.log(actorName);
+                var actor= information[i].name;
+                console.log(actor);
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
+                // insert photos into carousel
+                var actorImg=$("<img>");
+                  actorImg.attr("id","actor-"+ i);
+                  actorImg.attr("alt", "actor");
+                  actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
+                  $("#carousel-"+ i).empty().append(actorImg);
+
+                var actorName=$("<label>");
+                  actorName.attr("for", "actor-"+i);
+                  $("#carousel-"+ i).prepend(actor);
+
                       // //For loop to show actorswork  
                       for(var j=0; j < actorWorks.length; j++){
                         var actorMovie= actorWorks[j];
-                        // console.log(actorMovie.title);
-                        // console.log(actorMovie.poster_path);
-                        // console.log(actorMovie.overview);
-                      }
-
+                        }
+                  
 
                       
              }
@@ -85,16 +93,17 @@ $("#searchbtn").on("click", function(){
                 var movieSum=information[i].overview;
 
                 console.log(poster);
-
+                // insert image in carousel
                 var posterImg= $("<img>");
-                posterImg.attr("id", "poster-"+ i);
-                posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + information[i].poster_path);
-
-                console.log(posterImg);
-                
+                  posterImg.attr("id", "poster-"+ i);
+                  posterImg.attr("alt","movie");
+                  posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + information[i].poster_path);
                 $("#carousel-"+ i).empty().append(posterImg);
-               
-                              
+
+                var posterName= $("<label>");
+                  posterName.attr("for", "poster-"+i);
+                  $("#carousel-"+ i).prepend(title);
+                                             
                 // for loop to change id number for image
               
                 
@@ -103,7 +112,7 @@ $("#searchbtn").on("click", function(){
         
     
       
-// insert plot into card
+
 
 }); //End of OMDP API Ajax call
 
