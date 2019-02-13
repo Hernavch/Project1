@@ -25,40 +25,63 @@ $(document).ready(function(){
             Classy Spacer ;)
 -----------------------------------------*/
 
+//Search Function On click function
+$("#searchbtn").on("click", function(){ 
+    event.preventDefault();
+    var type;
+// Movie Radio
+    if ($("#movieradio").is(":checked")){
+    type="movie"
+    }
+    else{
+        type="person"
+    }
+    // console.log($("#movieradio").checked);
+
+
+
 //OMDP API Ajax call
-var movie = "Guardians of the Galaxy";
-var queryURL = "https://www.omdbapi.com/?t="+ movie +"&plot=long&apikey=6316fd3";
+    var search = $("#user-input").val();
+
+    var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
 
 
-$.ajax({
-    url:queryURL,
-    method:"GET"
+    $.ajax({
+        url:queryURL,
+        method:"GET"
 
-}).then(function(response) {
-    // console.log(response);
+    }).then(function(response) {
+        // console.log(response.results);
+        var information= response.results;
+        
+       
+// For loop through the results 
+        for(var i=0;i < 12; i++){
 
-// Get Title, Actors, Poster, Plot and Genre
-      var title= response.Title;
-      console.log(title);
-
-      var actors= response.Actors;
-      console.log(actors);
-
-      var poster= response.Poster;
-      console.log(poster);
-
-      var plot = response.Plot;
-      console.log(plot);
-
-      var genre = response.Genre;
-      console.log(genre);
+             if (type=== "person"){
+// IF STATEMENT distiguishing path to images etc
+                var actorName= information[i].name;
+                var actorPic=information[i].profile_path;
+                var filmography= information[i].known_for;
+                      //For loop through known for   
+             }
+             else {
+                var title= information[i].title;
+                var poster= information[i].poster_path;
+                var movieSum=information[i].overview;
+            }
+        }
+        
+    
       
-
-
 // insert plot into card
 
-
 }); //End of OMDP API Ajax call
+
+//  AJAX Movie Query S
+
+
+});
 
 // Initialize tooltip component (radio buttons)
 $(function () {
