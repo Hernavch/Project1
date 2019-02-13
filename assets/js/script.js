@@ -69,14 +69,14 @@ $("#searchbtn").on("click", function(){
                 //   var actorMovie= actorWorks[j];
                 //   }
 
-                // console.log(actorWorks);
+                console.log(actorWorks);
                 // insert photos into carousel
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
                   actorImg.attr("data-id", idNumber);
                   actorImg.attr("data-known", actorWorks);
                   actorImg.attr("class", "images");
-                  actorImg.attr("alt", "actor");
+                  actorImg.attr("alt", "people-placeholder");
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
                   $("#carousel-"+ i).empty().append(actorImg);
 
@@ -86,7 +86,7 @@ $("#searchbtn").on("click", function(){
                   $("#carousel-"+ i).prepend(actor);
                   $("#carousel-"+ i).append(idNumber);
 
-                      // // //For loop to show actorswork  
+               
                       
                   
              }
@@ -95,12 +95,14 @@ $("#searchbtn").on("click", function(){
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
+                var movieId=information[i].id;
 
                 // insert image in carousel
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
                   posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("data-mID",movieId);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
@@ -113,18 +115,26 @@ $("#searchbtn").on("click", function(){
                 }
         }
     
-        $(document.body).on("click", ".images", function(){
+
+        //On click Function that is copied and appended into information card 
+        $(document.body).on("click", ".images", function(event){
+          event.preventDefault();
+
+
           // Actor Ids from image
           var chosen= $(this);
+          console.log(chosen);
           var idNumber = chosen.attr('data-id');
           var knownFor = chosen.attr('data-known');
+          // console.log(knownFor[0]);
 
         //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
+          var movieNumber=chosen.attr("data-mID");
           
           $("#mainImage").empty().append(chosen.clone());
-          
+          // If chosen image is Actor movie ===false 
           if(movie===false){
             // console.log(idNumber);
             
@@ -148,8 +158,22 @@ $("#searchbtn").on("click", function(){
           }else{
             
             $("#mainName").empty().append(movieName);
+            $("#mainBio").empty().append(movieName)
             $("#summary").empty().append(movieSum);
             
+            $.ajax({
+              url:"https://api.themoviedb.org/3/movie/"+ movieNumber +"/credits?api_key=f0af9ea07b16056057fccc931b462c5f",
+              method:"GET"
+
+            }).then(function(response3){
+              var cast= response3.cast;
+              console.log(cast);
+               
+              for(var c=0; c< response3.cast.length; c++){
+                 console.log(cast[c].character);
+                 $("#cast").append(cast[c].character);
+               }
+               })
           };
 
 
