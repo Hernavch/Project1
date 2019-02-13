@@ -58,19 +58,23 @@ $("#searchbtn").on("click", function(){
        
         // For loop through the results 
         for(var i=0;i < 12; i++){
-            // $("carousel-"+ i).empty();
+            
              // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
-
                 var actor= information[i].name;
                 var idNumber= information[i].id;
-                console.log(actor);
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
+                // for(var j=0; j < actorWorks.length; j++){
+                //   var actorMovie= actorWorks[j];
+                //   }
+
+                // console.log(actorWorks);
                 // insert photos into carousel
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
-                  actorImg.attr("data-id", idNumber)
+                  actorImg.attr("data-id", idNumber);
+                  actorImg.attr("data-known", actorWorks);
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "actor");
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
@@ -82,10 +86,8 @@ $("#searchbtn").on("click", function(){
                   $("#carousel-"+ i).prepend(actor);
                   $("#carousel-"+ i).append(idNumber);
 
-                      // //For loop to show actorswork  
-                      for(var j=0; j < actorWorks.length; j++){
-                        var actorMovie= actorWorks[j];
-                        }
+                      // // //For loop to show actorswork  
+                      
                   
              }
               // IF search is Movie 
@@ -112,23 +114,32 @@ $("#searchbtn").on("click", function(){
         }
     
         $(document.body).on("click", ".images", function(){
+          // Actor Ids from image
           var chosen= $(this);
           var idNumber = chosen.attr('data-id');
+          var knownFor = chosen.attr('data-known');
+
+        //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
+          
           $("#mainImage").empty().append(chosen.clone());
           
           if(movie===false){
-            console.log(idNumber);                    
+            // console.log(idNumber);
+            
+            console.log(knownFor);                    
             $.ajax({
               url:"https://api.themoviedb.org/3/person/"+ idNumber +"?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
               method:"GET"
       
             }).then(function(response2){
-              console.log(response2);
+              // console.log(response2);
               $("#summary").empty().append(response2.biography);
               $("#mainName").empty().append(response2.name);
               $("#dates").empty().append(response2.birthday);
+              // console.log(knownFor[0]);
+              // $("#other").prepend(knownFor);
 
 
                });
