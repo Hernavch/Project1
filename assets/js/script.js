@@ -58,19 +58,23 @@ $("#searchbtn").on("click", function(){
        
         // For loop through the results 
         for(var i=0;i < 12; i++){
-            // $("carousel-"+ i).empty();
+            
              // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
-
                 var actor= information[i].name;
                 var idNumber= information[i].id;
-                console.log(actor);
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
+                // for(var j=0; j < actorWorks.length; j++){
+                //   var actorMovie= actorWorks[j];
+                //   }
+
+                // console.log(actorWorks);
                 // insert photos into carousel
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
-                  actorImg.attr("data-id", idNumber)
+                  actorImg.attr("data-id", idNumber);
+                  actorImg.attr("data-known", actorWorks);
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "actor");
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
@@ -80,12 +84,10 @@ $("#searchbtn").on("click", function(){
                   actorName.attr("for", "actor-"+i);
                   actorName.attr("data-id", idNumber);
                   $("#carousel-"+ i).prepend(actor);
-                  
+                  $("#carousel-"+ i).append(idNumber);
 
-                      // //For loop to show actorswork  
-                      for(var j=0; j < actorWorks.length; j++){
-                        var actorMovie= actorWorks[j];
-                        }
+                      // // //For loop to show actorswork  
+                      
                   
              }
               // IF search is Movie 
@@ -93,14 +95,12 @@ $("#searchbtn").on("click", function(){
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
-                var movieId=information[i].id;
 
                 // insert image in carousel
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
                   posterImg.attr("data-sum", movieSum);
-                  posterImg.attr("data-mID", movieId);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
@@ -114,46 +114,41 @@ $("#searchbtn").on("click", function(){
         }
     
         $(document.body).on("click", ".images", function(){
+          // Actor Ids from image
           var chosen= $(this);
           var idNumber = chosen.attr('data-id');
+          var knownFor = chosen.attr('data-known');
+
+        //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
-          var movieNumber=chosen.attr("data-mID");
+          
           $("#mainImage").empty().append(chosen.clone());
           
           if(movie===false){
-            console.log(idNumber);                    
+            // console.log(idNumber);
+            
+            // console.log(knownFor);                    
             $.ajax({
               url:"https://api.themoviedb.org/3/person/"+ idNumber +"?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
               method:"GET"
       
             }).then(function(response2){
-              console.log(response2);
+              // console.log(response2);
               $("#summary").empty().append(response2.biography);
               $("#mainName").empty().append(response2.name);
               $("#dates").empty().append(response2.birthday);
+              // console.log(knownFor[0]);
+              // $("#other").prepend(knownFor);
 
 
                });
 
 
           }else{
+            
             $("#mainName").empty().append(movieName);
-            $("mainBio").empty().append(movieName,)
             $("#summary").empty().append(movieSum);
-
-            $.ajax({
-              url:"https://api.themoviedb.org/3/movie/"+ movieNumber +"/credits?api_key=f0af9ea07b16056057fccc931b462c5f",
-              method:"GET"
-      
-            }).then(function(response3){
-              var cast= response3.cast;
-              console.log(cast);
-               for(var c=0; c< response3.cast.length; c++){
-                 console.log(cast[c].character);
-                 $("#cast").append(cast[c].character);
-               }
-               })
             
           };
 
@@ -184,12 +179,11 @@ $(function () {
   }); //End of radio buttons initialization
 
 
-  /*=======================================================
-    ##CLASSY AND NOT AT ALL OVER THE TOP LOGIN
-  =======================================================*/
+/*==========================================
+        LOGIN WINDOW (SIGN IN)
+===========================================*/
+$(window).ready(function(){
 
-  
-  $(window).ready(function(){
     $(".topform , .bottomform").focus(function() {
       $(this).css({'background-image': 'none'});
   });
@@ -214,11 +208,11 @@ $(function () {
       $(this).css('background-image', 'url(' + imageUrl + ')'); 
     });
    
-    $('.close').click(function(){
+    $('#close').click(function(){
       $('.containmain').slideUp(function(){
      
       
-        $('.close').text("Open").addClass("not");
+        $('#close').text("Sign In").addClass("not");
       
       
       });
@@ -235,10 +229,70 @@ $(function () {
       if ($( "#close" ).hasClass( "not" )){
         $('.containmain').slideDown(function(){
     
-      $('.close').text("Close").removeClass("not");
+      $('#close').text("Close").removeClass("not");
+    });
+   
+    }
+    }); //End of Login Window (sign in)
+    
+    
+   /*==========================================
+        LOGIN WINDOW (SIGN UP)
+    ===========================================*/
+    
+    $(".topform2 , .bottomform2").focus(function() {
+      $(this).css({'background-image': 'none'});
+  });
+    
+    
+    if ($('.topform2').is(':empty')){
+    
+    $(".topform2").focusout(function(){
+     imageUrl = 'http://www.flaticon.com/png/256/16612.png';
+      $(this).css('background-image', 'url(' + imageUrl + ')'); 
+    });
+      
+    } else if ($('.topform2').not(':empty')){
+    
+       $(this).css('background-image', 'none'); 
+      
+    }
+    
+    
+      $(".bottomform2").focusout(function(){
+     imageUrl = 'http://www.flaticon.com/png/256/25239.png';
+      $(this).css('background-image', 'url(' + imageUrl + ')'); 
+    });
+   
+    $('#close2').click(function(){
+      $('.containmain2').slideUp(function(){
+     
+      
+        $('#close2').text("Sign Up").addClass("not");
+      
+      
+      });
+                                  
+                                 
+      
+      
+    
+    });
+    
+    
+    $("#close2").click(function(){
+    
+      if ($( "#close2" ).hasClass( "not" )){
+        $('.containmain2').slideDown(function(){
+   
+      $('#close2').text("Close").removeClass("not");
     });
    
     }
     
     });
-    }); //END OF CLASSY AND NOT AT ALL OVER THE TOP LOGIN.
+
+    
+    
+    
+}); //End of Login Window (sign up)
