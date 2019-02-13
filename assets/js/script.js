@@ -171,7 +171,7 @@ $("#searchbtn").on("click", function(){
                
               for(var c=0; c< response3.cast.length; c++){
                  console.log(cast[c].character);
-                 $("#cast").append(cast[c].character);
+                 $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");;
                }
                })
           };
