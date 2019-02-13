@@ -95,12 +95,14 @@ $("#searchbtn").on("click", function(){
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
+                var movieId=information[i].id;
 
                 // insert image in carousel
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
                   posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("data-mID", movieId)
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
@@ -122,6 +124,8 @@ $("#searchbtn").on("click", function(){
         //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
+          var movieNumber= chosen.attr("data-mID");
+          console.log(movieNumber);
           
           $("#mainImage").empty().append(chosen.clone());
           
@@ -149,6 +153,22 @@ $("#searchbtn").on("click", function(){
             
             $("#mainName").empty().append(movieName);
             $("#summary").empty().append(movieSum);
+            $("#castHeader").append("Cast")
+              $.ajax({
+                url:"https://api.themoviedb.org/3/movie/"+ movieNumber +"/credits?api_key=f0af9ea07b16056057fccc931b462c5f",
+                method:"GET"
+
+              }).then(function(response3){
+                var cast= response3.cast;
+                console.log(cast);
+                
+                  for(var l= 0; l< response3.cast.length; l++){
+                    console.log(cast[l].name);
+                    
+                    $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");
+                    
+                  }
+                  });
             
           };
 
