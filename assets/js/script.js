@@ -28,10 +28,12 @@ $(document).ready(function(){
 //Search Function On click function
 $("#searchbtn").on("click", function(){ 
     event.preventDefault();
+    var movie=false;
     var type;
 // Movie Radio
     if ($("#movieradio").is(":checked")){
     type="movie"
+    movie=true;
     }
     else{
         type="person"
@@ -43,8 +45,8 @@ $("#searchbtn").on("click", function(){
 //OMDP API Ajax call
     var search = $("#user-input").val();
 
-    var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search;
-
+    var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search + "&append_to_response=credits";
+    
 
     $.ajax({
         url:queryURL,
@@ -53,28 +55,99 @@ $("#searchbtn").on("click", function(){
     }).then(function(response) {
         // console.log(response.results);
         var information= response.results;
-        
        
-// For loop through the results 
+        // For loop through the results 
         for(var i=0;i < 12; i++){
-
+            // $("carousel-"+ i).empty();
+             // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
-// IF STATEMENT distiguishing path to images etc
-                var actorName= information[i].name;
+
+                var actor= information[i].name;
+                var idNumber= information[i].id;
+                console.log(actor);
                 var actorPic=information[i].profile_path;
-                var filmography= information[i].known_for;
-                      //For loop through known for   
+                var actorWorks= information[i].known_for;
+                // insert photos into carousel
+                var actorImg=$("<img>");
+                  actorImg.attr("id","actor-"+ i);
+                  actorImg.attr("data-id", idNumber)
+                  actorImg.attr("class", "images");
+                  actorImg.attr("alt", "actor");
+                  actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
+                  $("#carousel-"+ i).empty().append(actorImg);
+
+                var actorName=$("<label>");
+                  actorName.attr("for", "actor-"+i);
+                  actorName.attr("data-id", idNumber);
+                  $("#carousel-"+ i).prepend(actor);
+                  $("#carousel-"+ i).append(idNumber);
+
+                      // //For loop to show actorswork  
+                      for(var j=0; j < actorWorks.length; j++){
+                        var actorMovie= actorWorks[j];
+                        }
+                  
              }
+              // IF search is Movie 
              else {
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
-            }
+
+                // insert image in carousel
+                var posterImg= $("<img>");
+                  posterImg.attr("id", "poster-"+ i);
+                  posterImg.attr("class", "images");
+                  posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("name", title);
+                  posterImg.attr("alt","movie");
+                  posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
+                $("#carousel-"+ i).empty().append(posterImg);
+
+                var posterName= $("<label>");
+                  posterName.attr("for", "poster-"+i);
+                  $("#carousel-"+ i).prepend(title);
+              
+                }
         }
+    
+        $(document.body).on("click", ".images", function(){
+          var chosen= $(this);
+          var idNumber = chosen.attr('data-id');
+          var movieSum = chosen.attr('data-sum');
+          var movieName=chosen.attr('name'); 
+          $("#mainImage").empty().append(chosen.clone());
+          
+          if(movie===false){
+            console.log(idNumber);                    
+            $.ajax({
+              url:"https://api.themoviedb.org/3/person/"+ idNumber +"?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
+              method:"GET"
+      
+            }).then(function(response2){
+              console.log(response2);
+              $("#summary").empty().append(response2.biography);
+              $("#mainName").empty().append(response2.name);
+              $("#dates").empty().append(response2.birthday);
+
+
+               });
+
+
+          }else{
+            
+            $("#mainName").empty().append(movieName);
+            $("#summary").empty().append(movieSum);
+            
+          };
+
+
+      
+        });
         
     
       
-// insert plot into card
+
 
 }); //End of OMDP API Ajax call
 
@@ -94,10 +167,12 @@ $(function () {
     
   }); //End of radio buttons initialization
 
+
 /*==========================================
         LOGIN WINDOW (SIGN IN)
 ===========================================*/
 $(window).ready(function(){
+
     $(".topform , .bottomform").focus(function() {
       $(this).css({'background-image': 'none'});
   });
