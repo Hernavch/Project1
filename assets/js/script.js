@@ -55,7 +55,6 @@ $("#searchbtn").on("click", function(){
     }).then(function(response) {
         // console.log(response.results);
         var information= response.results;
-        
        
         // For loop through the results 
         for(var i=0;i < 12; i++){
@@ -71,7 +70,7 @@ $("#searchbtn").on("click", function(){
                 // insert photos into carousel
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
-                  actorImg.attr("type", "idNumber")
+                  actorImg.attr("data-id", idNumber)
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "actor");
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
@@ -79,7 +78,7 @@ $("#searchbtn").on("click", function(){
 
                 var actorName=$("<label>");
                   actorName.attr("for", "actor-"+i);
-                  actorName.attr("type", idNumber);
+                  actorName.attr("data-id", idNumber);
                   $("#carousel-"+ i).prepend(actor);
                   $("#carousel-"+ i).append(idNumber);
 
@@ -99,6 +98,8 @@ $("#searchbtn").on("click", function(){
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
+                  posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + information[i].poster_path);
                 $("#carousel-"+ i).empty().append(posterImg);
@@ -112,10 +113,13 @@ $("#searchbtn").on("click", function(){
     
         $(document.body).on("click", ".images", function(){
           var chosen= $(this);
+          var idNumber = chosen.attr('data-id');
+          var movieSum = chosen.attr('data-sum');
+          var movieName=chosen.attr('name'); 
           $("#mainImage").empty().append(chosen.clone());
           
           if(movie===false){
-                      
+            console.log(idNumber);                    
             $.ajax({
               url:"https://api.themoviedb.org/3/person/"+ idNumber +"?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
               method:"GET"
@@ -131,9 +135,10 @@ $("#searchbtn").on("click", function(){
 
 
           }else{
-            
-            $("#summary").append(movieSum);
             console.log(movieSum);
+            $("#mainName").empty().append(movieName);
+            $("#summary").empty().append(movieSum);
+            
           };
 
 
@@ -167,11 +172,6 @@ $(function () {
     ##CLASSY AND NOT AT ALL OVER THE TOP LOGIN
   =======================================================*/
 
-  $(window).load(function(){
-
-    $('.containmain').slideDown(700);
-  
-  });
   
   $(window).ready(function(){
     $(".topform , .bottomform").focus(function() {
