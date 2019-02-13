@@ -1,5 +1,6 @@
 body{
-	background-color: #ededed;
+	background-repeat: no-repeat;
+	background-position: left top;
 	font-family: 'Oswald';
 	position: relative;
 	margin-top: 0;
@@ -14,16 +15,16 @@ body{
 	}
   }
   #partner-slider {
-
-	background-image: url("assets/images/filmblank.png");
-	background-repeat: no-repeat;
+	background-image: url("../images/film2.png");
 	background-color: #111;
+	resize: both;
 }
 
 .item {
-	padding: 10px 0px 10px 0px;
-	margin: auto;
+	padding: 25px 0px 25px 0px;
 }
+
+
 /*======================================================================
 ##		Global Settings
 =======================================================================*/
@@ -81,12 +82,12 @@ body{
 	letter-spacing: 1px;
 	font-weight: 300;
 	margin-top: 15px;
-	text-shadow: #111;
+	text-shadow: 1px 1px #111;
 	
 }
 .btn-robot:hover{
 	background-color: transparent;
-	color: #c8c8c8;
+	color: #f1f1f1;
 	border-color: #111;
 }
 .form-radio
@@ -106,7 +107,7 @@ body{
      border-radius: 50px;
      cursor: pointer;     
      margin-right: 7px;
-     outline: none;
+	 outline: none;
 }
 .form-radio:checked::before
 {
@@ -130,14 +131,17 @@ label
      font-family: 'Roboto', 'Oswald';
      color: white;
 	 cursor: pointer;
+	 text-shadow: #111;
  } 
 /*======================================================================
 ##		Header Section
 =======================================================================*/
 .site-header-bg{
 	width: 100%;
-	background-color: #005c74;
-	z-index: 1;
+	
+	background-size: cover;
+	background-position: center;
+	background-color: #005c74;	z-index: 1;
 	padding: 30px 0;
 	color: #fff;
 	text-transform: uppercase;
@@ -147,12 +151,16 @@ label
 	padding-top: 10px;
 }
 .site-header-bg .form-control{
-	border-radius: 0;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 	background-color: white;
 }
 .site-header-bg .input-group .btn{
 	text-transform: uppercase;
-	border-radius: 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+
+
 }
 .site-header-bg .btn-robot{
 	margin-top: 0;
