@@ -97,7 +97,7 @@ $(function () {
 /*==========================================
         LOGIN WINDOW (SIGN IN)
 ===========================================*/
-  $(window).ready(function(){
+$(window).ready(function(){
     $(".topform , .bottomform").focus(function() {
       $(this).css({'background-image': 'none'});
   });
@@ -122,11 +122,11 @@ $(function () {
       $(this).css('background-image', 'url(' + imageUrl + ')'); 
     });
    
-    $('.close').click(function(){
+    $('#close').click(function(){
       $('.containmain').slideUp(function(){
      
       
-        $('.close').text("Sign In").addClass("not");
+        $('#close').text("Sign In").addClass("not");
       
       
       });
@@ -143,7 +143,7 @@ $(function () {
       if ($( "#close" ).hasClass( "not" )){
         $('.containmain').slideDown(function(){
     
-      $('.close').text("Close").removeClass("not");
+      $('#close').text("Close").removeClass("not");
     });
    
     }
@@ -178,11 +178,11 @@ $(function () {
       $(this).css('background-image', 'url(' + imageUrl + ')'); 
     });
    
-    $('.close2').click(function(){
+    $('#close2').click(function(){
       $('.containmain2').slideUp(function(){
      
       
-        $('.close2').text("Sign Up").addClass("not");
+        $('#close2').text("Sign Up").addClass("not");
       
       
       });
@@ -199,7 +199,7 @@ $(function () {
       if ($( "#close2" ).hasClass( "not" )){
         $('.containmain2').slideDown(function(){
    
-      $('.close2').text("Close").removeClass("not");
+      $('#close2').text("Close").removeClass("not");
     });
    
     }

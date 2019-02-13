@@ -170,29 +170,7 @@ label
     position: relative;
 }
 
-.navbar{
-    margin-bottom: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.navbar-default{
-	border-color: #262626;
-    background-color: #111;
-}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
-	color: #c8c8c8;
-	background-color: transparent;
-}
-.navbar .navbar-nav {
-    display: inline-block;
-    float: none;
-}
-.navbar .navbar-collapse {
-    text-align: center;
-}
-.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-	color: #fff;
-}
+
 /*=============================================================================
 	##login thingy
 ==============================================================================*/
@@ -202,7 +180,7 @@ label
     height:40px;
     background-color:#005c74;
     width:100%;
-    font-family: tahoma;
+    font-family: 'Roboto';
     font-weight:bold;
     font-size:25px;
 	}
@@ -233,12 +211,15 @@ label
   .contain{
     background-color:black;
     height:50px;
+    font-family: 'Roboto', 'Oswald';
     
   }
 
   .contain2{
     background-color:black;
-    height:50px;}
+    height:50px;
+    font-family: 'Roboto', 'Oswald';
+  }
   
   .containmain{
     background-color:#005c74;
@@ -288,7 +269,7 @@ label
        width:100%;
       outline: none;
       padding: 25px;
-    border:none;
+      border:none;
     
       
   }
@@ -379,11 +360,10 @@ label
     background-size: 11%;
     background-position: 50% 50%;
   }
-	
 
 	
 	/*===============================================================
-	##Aside & Sidebar
+	##    Aside & Sidebar
 	================================================================*/
 	.box-post {
 		float: right;
