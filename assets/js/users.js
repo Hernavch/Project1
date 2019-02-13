@@ -1,4 +1,5 @@
-// Some of this code is WET, but it works, and we can move it around to where we want it and style it and DRY it out later.
+// Code that manages user access to realtime database, where they can store their favorites.
+// Some of this code is WET, but it works.
 
 // Initialize Firebase
 var config = {
@@ -19,12 +20,6 @@ var user = {
     name: "",
     favorites: []
 }
-
-// create sign in/up buttons
-var login = $("<div id='login'>");
-login.append("<button type='button' id='signIn'>Sign In</button>");
-login.append("<button type='button' id='signUp'>Sign Up</button>");
-$("body").append(login);
 
 function clearForm() {
     $("#username").val("");
