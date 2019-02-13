@@ -306,11 +306,19 @@ label {
 	padding-bottom:33%;
 }
 
+.center p {
+	color: #333;
+}
+
 .center2 {
 	margin: 0 auto;
 	width:400px;
 	padding-top:1%;
 	padding-bottom:33%;
+}
+
+.center2 p {
+	color: #333;
 }
 
 .profile {
