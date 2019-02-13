@@ -80,7 +80,7 @@ $("#searchbtn").on("click", function(){
                   actorName.attr("for", "actor-"+i);
                   actorName.attr("data-id", idNumber);
                   $("#carousel-"+ i).prepend(actor);
-                  $("#carousel-"+ i).append(idNumber);
+                  
 
                       // //For loop to show actorswork  
                       for(var j=0; j < actorWorks.length; j++){
@@ -93,12 +93,14 @@ $("#searchbtn").on("click", function(){
                 var title= information[i].title;
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
+                var movieId=information[i].id;
 
                 // insert image in carousel
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
                   posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("data-mID", movieId);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
@@ -116,6 +118,7 @@ $("#searchbtn").on("click", function(){
           var idNumber = chosen.attr('data-id');
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
+          var movieNumber=chosen.attr("data-mID");
           $("#mainImage").empty().append(chosen.clone());
           
           if(movie===false){
@@ -135,9 +138,22 @@ $("#searchbtn").on("click", function(){
 
 
           }else{
-            
             $("#mainName").empty().append(movieName);
+            $("mainBio").empty().append(movieName,)
             $("#summary").empty().append(movieSum);
+
+            $.ajax({
+              url:"https://api.themoviedb.org/3/movie/"+ movieNumber +"/credits?api_key=f0af9ea07b16056057fccc931b462c5f",
+              method:"GET"
+      
+            }).then(function(response3){
+              var cast= response3.cast;
+              console.log(cast);
+               for(var c=0; c< response3.cast.length; c++){
+                 console.log(cast[c].character);
+                 $("#cast").append(cast[c].character);
+               }
+               })
             
           };
 
