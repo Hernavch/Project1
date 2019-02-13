@@ -169,9 +169,15 @@ $("#searchbtn").on("click", function(){
               var cast= response3.cast;
               console.log(cast);
                
-              for(var c=0; c< response3.cast.length; c++){
-                 console.log(cast[c].character);
-                 $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");;
+              for(var l=0; l< response3.cast.length; l++){
+                //  console.log(cast[l].character);
+                 var castPic=cast[l].profile_path;
+                 console.log(castPic);
+
+               
+                  
+                 
+                 $("#cast").append("<img src='http://image.tmdb.org/t/p/w185'+ castPic><img>" + cast[l].name+" As:" + cast[l].character+ "<br> ");;
                }
                })
           };
