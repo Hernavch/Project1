@@ -101,7 +101,7 @@ $("#searchbtn").on("click", function(){
                   posterImg.attr("data-sum", movieSum);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
-                  posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + information[i].poster_path);
+                  posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
                 $("#carousel-"+ i).empty().append(posterImg);
 
                 var posterName= $("<label>");
@@ -135,7 +135,7 @@ $("#searchbtn").on("click", function(){
 
 
           }else{
-            console.log(movieSum);
+            
             $("#mainName").empty().append(movieName);
             $("#summary").empty().append(movieSum);
             
