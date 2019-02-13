@@ -1,7 +1,7 @@
 body{
 	background-repeat: no-repeat;
 	background-position: left top;
-	font-family: 'Oswald';
+	font-family: 'Roboto','Oswald';
 	position: relative;
 	margin-top: 0;
 }
@@ -81,7 +81,7 @@ body{
 	border-radius: 0;
 	background-color: #c8c8c8;
 	color: #fff;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	border-color: transparent;
 	border-radius: 12px;
 	padding: 5px 15px;
@@ -108,9 +108,10 @@ body{
      appearance: none;
      display: inline-block;
      position: relative;
+     margin-right: 20px;
 
 	 background-color: #c8c8c8;
-	 text-shadow: 2px;
+	 text-shadow: 1px 1px #111;
      color: white;
 
      top: 10px;
@@ -119,7 +120,6 @@ body{
      border: 0;
      border-radius: 50px;
      cursor: pointer;     
-     margin-right: 7px;
 	 outline: none;
 }
 .form-radio:checked::before
@@ -144,11 +144,15 @@ body{
 label
 {
      font-family: 'Roboto', 'Oswald';
-
+     text-transform: uppercase;
+     text-shadow: 2px;
+     padding-right: 1.36m;
+     margin-right: 0px;
+     padding-left: 2px;
+     margin-left: 2px;
      color: white;
 
-	 cursor: pointer;
-	 text-shadow: #111;
+	  cursor: pointer;
  } 
 /*======================================================================
 ##		Header Section
@@ -220,18 +224,21 @@ label
 	##login thingy
 ==============================================================================*/
 .toggle{
-    background-color:black;
-    color:white;
+    background-color:rgba(43, 34, 34, 0.39);
+    color:#c8c8c8;
     height:40px;
     background-color:#005c74;
     width:100%;
     font-family: 'Roboto';
     font-weight:bold;
     font-size:25px;
-	}
+  }
+  #close{
+    color: #c8c8c8;
+  }
 
   .close{
-    color:white;
+    color:#c8c8c8;
     float:right;
     cursor:pointer;
     margin-right:30px;
@@ -242,7 +249,7 @@ label
   }
 
   .close2{
-    color:white;
+    color:#c8c8c8;
     float:right;
     cursor:pointer;
     margin-right:30px;
@@ -252,8 +259,12 @@ label
     font-family: 'Roboto';
   }
   
+  #close2{
+    color: #c8c8c8;
+  }
   
   .contain{
+    color: #c8c8c8;
     background-color:black;
     height:50px;
     font-family: 'Roboto', 'Oswald';
@@ -261,20 +272,22 @@ label
   }
 
   .contain2{
+    color: #c8c8c8;
     background-color:black;
     height:50px;
     font-family: 'Roboto', 'Oswald';
   }
   
   .containmain{
-    background-color:#005c74;
+    color: #c8c8c8;
+    background-color:#c8c8c8;
     width:100%;
     display:none;
     
   }
 
   .containmain2{
-    background-color:#005c74;
+    background-color:#c8c8c8;
     width:100%;
     display:none;
     
@@ -283,13 +296,13 @@ label
     margin: 0 auto;
     width:400px;
     padding-top:1%;
-    padding-bottom:100%;
+    padding-bottom:33%;
   }
   .center2{
     margin: 0 auto;
     width:400px;
     padding-top:1%;
-    padding-bottom:100%;
+    padding-bottom:33%;
   }
   .profile{
     margin-top:30px;
@@ -311,10 +324,10 @@ label
   
   
   input {
+    color: #c8c8c8;
        width:100%;
       outline: none;
       padding: 25px;
-      border:none;
     
       
   }
@@ -324,9 +337,9 @@ label
     background: black;
     border:none;
     color:white;
-    width:300px;
+    width:250px;
     font-size:15px;
-  
+    border-radius: 10px;
   }
   
   input[type=submit]:hover{
@@ -347,6 +360,7 @@ label
     width:250px;
     margin: 0 auto;
     margin-top:40px;
+    margin-bottom: 0px;
   }
   
   .topform{
@@ -356,7 +370,7 @@ label
     background-repeat: no-repeat;
     background-color:white;
     background-size: 7%;
-    background-position: 50% 50%;
+    background-position: 80% 50%;
   }
   .topform2{
     border-bottom:2px solid lightgrey;
@@ -364,8 +378,8 @@ label
     background-image: url('http://www.flaticon.com/png/256/16612.png');
     background-repeat: no-repeat;
     background-color:white;
-    background-size: 7%;
-    background-position: 50% 50%;
+    background-size: 10%;
+    background-position: 80% 50%;
   }
   .topform3{
     border-bottom:2px solid lightgrey;
@@ -373,8 +387,8 @@ label
     background-image: url('http://www.flaticon.com/png/256/16612.png');
     background-repeat: no-repeat;
     background-color:white;
-    background-size: 7%;
-    background-position: 50% 50%;
+    background-size: 10%;
+    background-position: 80% 50%;
   }
   .topform4{
     border-bottom:2px solid lightgrey;
@@ -382,8 +396,8 @@ label
     background-image: url('http://www.flaticon.com/png/256/16612.png');
     background-repeat: no-repeat;
     background-color:white;
-    background-size: 7%;
-    background-position: 50% 50%;
+    background-size: 10%;
+    background-position: 80% 50%;
   }
   
   
@@ -393,17 +407,26 @@ label
     background-image: url('http://www.flaticon.com/png/256/25239.png');
     background-repeat: no-repeat;
     background-color:white;
-    background-size: 11%;
-    background-position: 50% 50%;
+    background-size: 10%;
+    background-position: 80% 50%;
   }
   .bottomform2{
+    margin-top:0px;
+    margin-bottom:0px;
+    background-image: url('http://www.flaticon.com/png/256/25239.png');
+    background-repeat: no-repeat;
+    background-color:white;
+    background-size: 10%;
+    background-position: 80% 50%;
+  }
+  .bottomform3{
     margin-top:0px;
     margin-bottom:20px;
     background-image: url('http://www.flaticon.com/png/256/25239.png');
     background-repeat: no-repeat;
     background-color:white;
-    background-size: 11%;
-    background-position: 50% 50%;
+    background-size: 10%;
+    background-position: 80% 50%;
   }
 
 	
