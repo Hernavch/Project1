@@ -205,7 +205,11 @@ $("#searchbtn").on("click", function(){
                  var castImg=$("<img>");
                 //  castImg.attr("src", 'http://image.tmdb.org/t/p/w185'+ cast[l].profile_path);
                  var castImgUrl= "https://image.tmdb.org/t/p/w92" + castPic;
+<<<<<<< HEAD
                 //  console.log(castImgUrl);
+=======
+                 console.log(castImgUrl);
+>>>>>>> master
                  castImg.attr("class", "images");
                  castImg.attr("id", "cast-"+ l)
                  castImg.attr("alt", "actor Image");
@@ -221,7 +225,11 @@ $("#searchbtn").on("click", function(){
                 //  var imageCastURL= cast
 
                  $("#altBio").empty().append("Cast List");
+<<<<<<< HEAD
                  $("#altList").empty().append(castImg + "<br>");
+=======
+                 $("#altList").empty().append(castImg+ "<br>");
+>>>>>>> master
                   
                 //  $("#cast").prepend(castImg);
                 //  $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");;
