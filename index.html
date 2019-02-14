@@ -1,233 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Project_1</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSS -->
+    <title>Project_1</title>
 
-        <!-- google fonts -->
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/magnific-popup.css" rel="stylesheet">
+    <link href="assets/css/owl.carousel.css" rel="stylesheet">
+    <link href="assets/css/owl.carousel.theme.min.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
 
-        <!-- files -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/magnific-popup.css" rel="stylesheet">
-        <link href="assets/css/owl.carousel.css" rel="stylesheet">
-        <link href="assets/css/owl.carousel.theme.min.css" rel="stylesheet">
-        <link href="assets/css/main.css" rel="stylesheet">
-        <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <!-- google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+</head>
 
-        
-    </head>
-    <body>
-
-           
-
+<body>
     <!-- Site Header -->
-       <div class="site-header-bg">
-            <div class="container">
-                <div class="row" id="logo">
-                    <div class="col-sm-4">
-                        <a href="index.html"><img src="assets/images/filmstrip.png" width="65%" alt="logo" id="logo-image"></a>
-                    </div>
-                    <div class="col-sm-4 col-sm-offset-4 text-right">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="user-input" placeholder="">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default btn-robot" id="searchbtn" type="button">Search</button>
-                                </span>
-                            </div>
-                        </form>
+    <div class="site-header-bg">
+        <div class="container">
+            <div class="row" id="logo">
+                <div class="col-sm-4">
+                    <a href="index.html"><img src="assets/images/filmstrip.png" width="65%" alt="logo"
+                            id="logo-image"></a>
+                </div>
+                <div class="col-sm-4 col-sm-offset-4 text-right">
+                    <!-- Search -->
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="user-input" placeholder="" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-robot" id="searchbtn" type="submit">Search</button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- Radio buttons for search type -->
+                    <input type="radio" name="type" id="movieradio" class="form-radio" checked /><label
+                        for="movieradio">Movie</label>
+                    <input type="radio" name="type" id="actorradio" class="form-radio" checked /><label
+                        for="actorradio">Actor</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Login-->
+    <div class="contain">
+        <div id="close" class="close">Sign In</div>
+    </div>
+    <div class="containmain">
+        <div class="center">
+            <div class="profile">
+            </div>
+            <!-- Sign-in form -->
+            <form class="form" action="demo_form.asp" autocomplete="on">
+                <input type="text" class="topform" placeholder="Username" id="usernameIn" name="username" />
+                <br />
+                <input type="password" class="bottomform" placeholder="Password" id="passwordIn" name="password" />
+                <br />
+                <input type="submit" id="submitIn" />
+            </form>
+            <br />
+            <p></p>
+        </div>
+    </div>
 
-                        <input type="radio" name="type" id="movieradio" class="form-radio" checked><label for="movieradio">Movie</label>
-                        <input type="radio" name="type" id="actorradio" class="form-radio" checked><label for="actorradio">Actor</label>
+    <div class="contain2">
+        <div id="close2" class="close">Sign Up</div>
+    </div>
+    <div class="containmain2">
+        <div class="center2">
+            <div class="profile2">
+            </div>
+            <!-- Sign-up form -->
+            <form class="form2" action="demo_form.asp" autocomplete="on">
+                <input type="text" class="topform4" placeholder="Username" id="usernameUp" name="username" />
+                <br>
+                <input type="password" class="bottomform2" placeholder="Password" id="passwordUp" name="password" />
+                <br />
+                <input type="password" class="bottomform3" placeholder="Confirm Password" id="passConfirm" name="comfirm" />
+                <br />
+                <input type="submit" id="submitUp" />
+            </form>
+            <br />
+            <p>Please do not use a username or password from any other site. Data stored on this site is not secure.</p>
+        </div>
+    </div>
 
-                    </div>
+    <!-- Dividing line -->
+    <hr />
+
+    <!-- Partner (carousel) -->
+    <section id="partner" class="partner">
+        <div class="container section-bg">
+            <div class="row">
+                <div class="col-sm-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="boxed">
+                    <div class="col-sm-12">
+                        <div id="partner-slider" class="owl-carousel">
+                            <div class="item" id="carousel-0"></div>
+                            <div class="item" id="carousel-1"></div>
+                            <div class="item" id="carousel-2"></div>
+                            <div class="item" id="carousel-3"></div>
+                            <div class="item" id="carousel-4"></div>
+                            <div class="item" id="carousel-5"></div>
+                            <div class="item" id="carousel-6"></div>
+                            <div class="item" id="carousel-7"></div>
+                            <div class="item" id="carousel-8"></div>
+                            <div class="item" id="carousel-9"></div>
+                            <div class="item" id="carousel-10"></div>
+                            <div class="item" id="carousel-11"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+    </section>
 
-            <!--Login-->
+    <hr>
 
-
-             <div class="contain">
-                    <div id="close" class="close">Sign In</div>
-                 </div>
-                 <div class="containmain">
-                   <div class="center">
-                   <div class="profile">
-                     
-                   </div>
-                  <form class="form" action="demo_form.asp" autocomplete="on">
-                   <input type="text" class="topform" placeholder="Username" name="fname"><br>
-                   <input type="password" class="bottomform" placeholder="Password" name="lname"><br>
-                   <input type="submit">
-                 </form>
-                     </div>
-                     </div>
-                 </div>
-                 
-                   <div class="contain2">
-                    <div id="close2" class="close">Sign Up</div>
-                 </div>
-                 <div class="containmain2">
-                   <div class="center2">
-                   <div class="profile2">
-                     
-                   </div>
-                  <form class="form2" action="demo_form.asp" autocomplete="on">
-                   <input type="text" class="topform4" placeholder="Username" name="fname"><br>
-                   <input type="password" class="bottomform2" placeholder="Password" name="lname"><br>
-                   <input type="password" class="bottomform3" placeholder="Confirm Password" name="lname"><br>
-                   <input type="submit">
-                 </form>
-                     </div>
-                     </div>
-                 </div>
-
-                             
-<hr>
-
-    <!-- Partner (carousel) -->
-
-        <section id="partner" class="partner">
-            <div class="container section-bg">
-                <div class="row">
-                    <div class="col-sm-12">
-                    </div>
+    <!-- Content -->
+    <section id="content" class="content">
+        <div class="container">
+            <div class="row">
+                <!-- Main text area -->
+                <div class="col-7 col-12-medium">
+                    <article class="box-post">
+                        <a href="#" class="image featured"><img src="" alt="" /></a>
+                        <header>
+                            <h3>Biography</h3>
+                        </header>
+                        <p id="summary"></p>
+                        <section>
+                            <header>
+                                <h3>Movies</h3>
+                                <div id="movieList">
+                                </div>
+                            </header>
+                        </section>
+                    </article>
                 </div>
-                <div class="row">
-                    <div class="boxed">
-                       <div class="col-sm-12">
-                           <div id="partner-slider" class="owl-carousel">
-                                <div class="item" id="carousel-0">
-                                 </div>
-                                <div class="item" id="carousel-1">
-                                </div>
-                                <div class="item" id="carousel-2">
-                                </div>
-                                <div class="item" id="carousel-3">
-                                </div>
-                                <div class="item" id="carousel-4">
-                                </div>
-                                <div class="item" id="carousel-5">
-                                </div>
-                                <div class="item" id="carousel-6">
-                                </div>
-                                <div class="item" id="carousel-7">
-                                </div>
-                                <div class="item" id="carousel-8">
-                                </div>
-                                <div class="item" id="carousel-9">
-                                </div>
-                                <div class="item" id="carousel-10">
-                                </div>
-                                <div class="item" id="carousel-11">
-                                </div> 
-                            </div>
-                       </div>
-                    </div>
+                <!-- Sidebar -->
+                <div class="col-4 col-12-medium">
+                    <section class="box">
+                        <a href="#" class="image featured" id="mainImage"><img src="assets/images/bg.png"
+                                alt="placeholder" /></a>
+                        <header>
+                            <h3 id="mainName">Actor</h3>
+                        </header>
+                        <p id="dates">Birthdate</p>
+                    </section>
+                    <section class="box">
+                    </section>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <!-- Footer -->
 
-        <hr>
-
-        <!-- Content -->
-				<section id="content" class="content">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-7 col-12-medium">
-    
-                                    <!-- Content -->
-                                        <article class="box-post">
-                                            <a href="#" class="image featured"><img src="" alt="" /></a>
-                                            <header>
-                                                <h2 id="mainBio"></h2>
-                                                
-                                            </header>
-                                            <p id="summary">
-                                                
-                                            </p>
-                                            <section>
-                                                <header>
-                                                    <h3>Known For</h3>
-                                                </header>
-                                                <p id="other">
-                                                    Elementum odio duis semper risus et lectus commodo fringilla. Maecenas sagittis convallis justo vel mattis.
-                                                    placerat, nunc diam iaculis massa, et aliquet nibh leo non nisl vitae porta lobortis, enim neque fringilla nunc,
-                                                    eget faucibus lacus sem quis nunc suspendisse nec lectus sit amet augue rutrum vulputate ut ut mi. Aenean
-                                                    elementum, mi sit amet porttitor lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                    sit amet nullam consequat feugiat dolore tempus.
-                                                </p>
-                                                <p>
-                                                    Nunc diam iaculis massa, et aliquet nibh leo non nisl vitae porta lobortis, enim neque fringilla nunc,
-                                                    eget faucibus lacus sem quis nunc suspendisse nec lectus sit amet augue rutrum vulputate ut ut mi. Aenean
-                                                    elementum, mi sit amet porttitor lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                    sit amet nullam consequat feugiat dolore tempus.
-                                                </p>
-                                            </section>
-                                           
-                                        </article>
-    
-                                </div>
-                                <div class="col-4 col-12-medium">
-    
-                                    <!-- Sidebar -->
-                                        <section class="box">
-                                            <a href="#" class="image featured" id="mainImage"><img src="assets/images/bg.png" alt="placeholder" /></a>
-                                            <header>
-                                                <h3 id="mainName">Sed etiam lorem nulla</h3>
-                                            </header>
-                                            <p id="dates">Lorem ipsum dolor sit amet sit veroeros sed amet blandit consequat veroeros lorem blandit  adipiscing et feugiat phasellus tempus dolore ipsum lorem dolore.</p>
-                                            <footer>
-                                                <a href="#" class="button alt">Magna sed taciti</a>
-                                            </footer>
-                                        </section>
-                                        <section class="box">
-                                            <header>
-                                                <h3>Feugiat consequat</h3>
-                                            </header>
-                                            <p>Veroeros sed amet blandit consequat veroeros lorem blandit adipiscing et feugiat sed lorem consequat feugiat lorem dolore.</p>
-                                            <footer class="divided">
-                                                <a href="#">Sed et blandit consequat sed</a>
-                                                <a href="#">Hendrerit tortor vitae sapien dolore</a>
-                                                <a href="#">Sapien id suscipit magna sed felis</a>
-                                                <a href="#">Aptent taciti sociosqu ad litora</a>
-                                            </footer>
-                                            <footer>
-                                                <a href="#" class="button alt">Ipsum consequat</a>
-                                            </footer>
-                                        </section>
-    
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-    
-
-
-        <!-- Footer -->
-       
-        <footer class="footer text-center">
-            <h3>&copy;2019 <a href="#"> A Team Has No Name.</a></h3>
-        </footer>
+    <footer class="footer text-center">
+        <h3>&copy;2019 <a href="#"> A Team Has No Name.</a></h3>
+    </footer>
 
     <!-- Scripts -->
-        <script src="assets/js/jquery-1.12.3.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery.magnific-popup.min.js"></script>
-        <script src="assets/js/owl.carousel.min.js"></script>
-        <script src="assets/js/script.js"></script>
-        <script src="assets/js/users.js"></script>
-    </body>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="assets/js/jquery-1.12.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/users.js"></script>
+</body>
+
 </html>
 
 <!-- //created by Marvin, Toua, Jeff, and Vanessa -->
