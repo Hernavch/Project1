@@ -60,7 +60,7 @@ function searchTMDB(input) {
                 var actor = information[i].name;
                 var idNumber = information[i].id;
                 var actorPic = information[i].profile_path;
-                var actorWorks = information[i].known_for;
+                // var actorWorks = information[i].known_for;
                 // insert photos into carousel
                 var actorImg = $("<img>");
                 actorImg.attr("id", "actor-" + i);
@@ -74,7 +74,6 @@ function searchTMDB(input) {
                 actorName.attr("data-id", idNumber);
                 $("#carousel-" + i).prepend(actor);
                 $("#carousel-" + i).append(idNumber);
-
                 // //For loop to show actorswork
                 // for (var j = 0; j < actorWorks.length; j++) {
                 //     var actorMovie = actorWorks[j];
@@ -153,7 +152,6 @@ function searchTMDB(input) {
                     url: "https://api.themoviedb.org/3/movie/" + idNumber + "/credits?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
                     method: "GET"
                 }).then(function (response) {
-                    console.log(response);
                     $("#movieList").html("");
                     for (var j =0; j < response.cast.length; j++) {
                         var film = $("<p>")
@@ -168,8 +166,6 @@ function searchTMDB(input) {
                         movie = false;
                         $("#actorradio").prop("checked", true);
                         $("#movieradio").prop("checked", false);
-                        console.log($(this).text());
-                        console.log(type + movie);
                         searchTMDB($(this).text());
                     });
                 });
