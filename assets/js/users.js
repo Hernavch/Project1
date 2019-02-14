@@ -1,4 +1,5 @@
-// Some of this code is WET, but it works, and we can move it around to where we want it and style it and DRY it out later.
+// Code that manages user access to realtime database, where they can store their favorites.
+// Some of this code is WET, but it works.
 
 // Initialize Firebase
 var config = {
@@ -20,30 +21,6 @@ var user = {
     favorites: []
 }
 
-// create sign in/up buttons
-var login = $("<div id='login'>");
-login.append("<button type='button' id='signIn'>Sign In</button>");
-login.append("<button type='button' id='signUp'>Sign Up</button>");
-$("body").append(login);
-
-// Generate the form for sign in
-function signForm(){
-    $("#login").remove();
-    var signUp = $("<div id=signForm>");
-    // This line is the whole form
-    signUp.append(" \
-        <form> \
-            Username:<br /> \
-            <input type='text' name='username' id='username' value='' />\
-            <br />Password:<br /> \
-            <input type='password' name='password' id='password' value='' /> \
-            <br /><br /> \
-            <input type='submit' value='Submit' id='submit'/> \
-        </form>"
-    )
-    $("body").append(signUp);
-};
-
 function clearForm() {
     $("#username").val("");
     $("#password").val("");
@@ -55,91 +32,85 @@ function loadFavorites(key) {
     })
 };
 
-// When sign up is clicked, generate a sign up form
-$("#signUp").on("click", function () {
-    event.preventDefault();
-    signForm();
-    $("#signForm").append(" \
-        <p>Please do not use a username or password from any other site.</p> \
-        <p>Data stored on this site is not secure.</p>"
-    );
-    // When a username and password have both been submitted
-    $("#submit").on("click", function() {
-        event.preventDefault();        
-        // For serious: both of them
-        if ($("#username").val() != "" && $("#password").val () != "") {
-            var users = database.ref('users'); // pull the directory where the users will be
-            var search = users.orderByChild('username').equalTo($("#username").val()); // search keys for matching username
-            search.once("value", function(snapshot) {
+// Sign Up database access
+$("#submitUp").on("click", function() {
+    event.preventDefault();        
+    // For serious: both of them
+    if ($("#usernameUp").val() != "" && $("#passwordUp").val () != "") {
+        var users = database.ref('users'); // pull the directory where the users will be
+        var search = users.orderByChild('username').equalTo($("#usernameUp").val()); // search keys for matching username
+        search.once("value", function(snapshot) {
+            if ($("#passwordUp").val() === $("#passConfirm").val()) {
                 if (!snapshot.exists()) {
                     database.ref("users").push({
-                        username: $("#username").val(),
-                        password: $("#password").val(),
+                        username: $("#usernameUp").val(),
+                        password: $("#passwordUp").val(),
                         favorites: []
                     }).then(function(snap) {
                         // local variables are stored for browser to reference user
                         user.key = snap.key;
-                        user.name = $("#username").val();
+                        user.name = $("#usernameUp").val();
                     })
                     loadFavorites(user.key);
-                    $("#signForm").remove();
+                    // $("#signForm").remove();
                 }
                 else {
                     clearForm();
-                    $("#signForm").prepend("<p>That name has already been used.</p>");
+                    $(".center2 p").text("That name has already been used. Please enter a different name.");
                 }
-            })
-        }
-        else {
-            clearForm();
-            $("#signForm").prepend("<p>Enter username and password,</p>");
-        }
-    })
+            }
+            else {
+                $(".center2 p").text("Password confirmation did not match. Please re-enter.");
+            }
+        })
+    }
+    else {
+        clearForm();
+        $(".center2 p").text("Please enter both username and password.");
+        // $("#signForm").prepend("<p>Enter username and password,</p>");
+    }
 })
 
-$("#signIn").on("click", function() {
+// Sign In database access
+$("#submitIn").on("click", function() {
     event.preventDefault();
-    signForm();
-    $("#signForm").append("<p>Please enter your name and password.</p>");
-    // When a username and password have both been submitted
-    $("#submit").on("click", function() {
-        event.preventDefault();
-        // For serious: both of them
-        if ($("#username").val() != "" && $("#password").val () != "") {
-            var users = database.ref('users'); // pull the directory where the users will be
-            var search = users.orderByChild('username').equalTo($("#username").val()); // search keys for matching username
-            search.once("value", function(snapshot) {
-                if (snapshot.exists()) {
-                    database.ref().child('users').orderByChild('username').equalTo($("#username").val()).once("value", function(snap) {
-                        // temporarily accept the information
-                        snap.forEach(function (data) {
-                            user.key = data.key;
-                            user.name = $("#username").val();
-                        });
-                        console.log(user);
-                        // look for password
-                        database.ref('users/' + user.key).once("value", function(snapshot) {
-                            // Is it right?
-                            if (snapshot.val().password === $("#password").val()) {
-                                loadFavorites(user.key);
-                                $("#signForm").remove();
-                            }
-                            else {
-                                clearForm();
-                               $("#signForm").prepend("<p>Username or password is incorrect.</p>");
-                            }
-                        });
+    // For serious: both of them
+    if ($("#usernameIn").val() != "" && $("#passwordIn").val () != "") {
+        var users = database.ref('users'); // pull the directory where the users will be
+        var search = users.orderByChild('username').equalTo($("#usernameIn").val()); // search keys for matching username
+        search.once("value", function(snapshot) {
+            if (snapshot.exists()) {
+                database.ref().child('users').orderByChild('username').equalTo($("#usernameIn").val()).once("value", function(snap) {
+                    // temporarily accept the information
+                    snap.forEach(function (data) {
+                        user.key = data.key;
+                        user.name = $("#usernameIn").val();
                     });
-                }
-                else {
-                    clearForm();
-                    $("#signForm").prepend("<p>Username or password is incorrect.</p>");
-                };
-            });
-        }
-        else {
-            clearForm();
-            $("#signForm").prepend("<p>Enter username and password.</p>");
-        };
-    });
+                    console.log(user);
+                    // look for password
+                    database.ref('users/' + user.key).once("value", function(snapshot) {
+                        // Is it right?
+                        if (snapshot.val().password === $("#passwordIn").val()) {
+                            console.log("log in success");
+                            loadFavorites(user.key);
+                            // $("#signForm").remove();
+                        }
+                        else {
+                            console.log("log in failure")
+                            clearForm();
+                            $(".center p").text("Username or password is incorrect. Please try again.");
+                        }
+                    });
+                });
+            }
+            else {
+                clearForm();
+                $(".center p").text("Username or password is incorrect. Please try again.");
+            };
+        });
+    }
+    else {
+        clearForm();
+        $(".center p").text("Please enter both username and password.");
+    };
 });
