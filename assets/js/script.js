@@ -40,7 +40,6 @@ function searchTMDB(input) {
     else {
         type = "person"
     }
-    // console.log($("#movieradio").checked);
 
     //OMDP API Ajax call
     var search = input;
@@ -50,12 +49,9 @@ function searchTMDB(input) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        // console.log(response.results);
         var information = response.results;
-        console.log(response);
         // For loop through the results
         var k = 10;
-        console.log(information.length);
         if (information.length < 10) {k = information.length};
         for (var i = 0; i < k; i++) {
             // $("carousel-"+ i).empty();
@@ -63,13 +59,12 @@ function searchTMDB(input) {
             if (type === "person") {
                 var actor = information[i].name;
                 var idNumber = information[i].id;
-                console.log(actor);
                 var actorPic = information[i].profile_path;
                 var actorWorks = information[i].known_for;
                 // insert photos into carousel
                 var actorImg = $("<img>");
                 actorImg.attr("id", "actor-" + i);
-                actorImg.attr("data-id", idNumber)
+                actorImg.attr("data-id", idNumber);
                 actorImg.attr("class", "images");
                 actorImg.attr("alt", "actor");
                 actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
@@ -81,25 +76,26 @@ function searchTMDB(input) {
                 $("#carousel-" + i).append(idNumber);
 
                 // //For loop to show actorswork
-                for (var j = 0; j < actorWorks.length; j++) {
-                    var actorMovie = actorWorks[j];
-                }
+                // for (var j = 0; j < actorWorks.length; j++) {
+                //     var actorMovie = actorWorks[j];
+                // }
             }
             // IF search is Movie
             else {
-                console.log(information[i].title);
                 var title = information[i].title;
-                console.log("WHY!");
+                var idNumber = information[i].id;
                 var poster = information[i].poster_path;
                 var movieSum = information[i].overview;
                 // insert image in carousel
                 var posterImg = $("<img>");
                 posterImg.attr("id", "poster-" + i);
+                posterImg.attr("data-id", idNumber);
                 posterImg.attr("class", "images");
                 posterImg.attr("data-sum", movieSum);
                 posterImg.attr("name", title);
                 posterImg.attr("alt", "movie");
                 posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
+                posterImg.attr("date", information[i].release_date)
                 $("#carousel-" + i).empty().append(posterImg);
                 var posterName = $("<label>");
                 posterName.attr("for", "poster-" + i);
@@ -111,14 +107,15 @@ function searchTMDB(input) {
             var idNumber = chosen.attr('data-id');
             var movieSum = chosen.attr('data-sum');
             var movieName = chosen.attr('name');
+            var release = chosen.attr('date');
             $("#mainImage").empty().append(chosen.clone());
             if (movie === false) {
-                console.log(idNumber);
+                $("#bioSyn").text("Biography");
+                $("#movAct").text("Movies");
                 $.ajax({
                     url: "https://api.themoviedb.org/3/person/" + idNumber + "?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
                     method: "GET"
                 }).then(function (response2) {
-                    console.log(response2);
                     $("#summary").empty().append(response2.biography);
                     $("#mainName").empty().append(response2.name);
                     $("#dates").empty().append(response2.birthday);
@@ -127,8 +124,6 @@ function searchTMDB(input) {
                         url: "https://api.themoviedb.org/3/person/" + idNumber + "/movie_credits?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
                         method: "GET"
                     }).then(function (response) {
-                        console.log(response);
-                        console.log(response.cast.length);
                         $("#movieList").html("");
                         for (var j =0; j < response.cast.length; j++) {
                             var film = $("<p>")
@@ -143,18 +138,41 @@ function searchTMDB(input) {
                             movie = true;
                             $("#actorradio").prop("checked", false);
                             $("#movieradio").prop("checked", true);
-                            console.log($(this).text());
-                            console.log(type + movie);
                             searchTMDB($(this).text());
                         });
                     });
-
-
                 });
             }
             else {
+                $("#bioSyn").text("Synopsis");
+                $("#movAct").text("Cast");
+                $("#dates").empty().append(release);
                 $("#mainName").empty().append(movieName);
                 $("#summary").empty().append(movieSum);
+                $.ajax({
+                    url: "https://api.themoviedb.org/3/movie/" + idNumber + "/credits?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
+                    method: "GET"
+                }).then(function (response) {
+                    console.log(response);
+                    $("#movieList").html("");
+                    for (var j =0; j < response.cast.length; j++) {
+                        var film = $("<p>")
+                        film.append("<span>" + response.cast[j].character + ": </span>");
+                        film.append("<span class='movieTitle'>" + response.cast[j].name + ", </span>");
+                        $("#movieList").append(film);
+                    }
+                    $(".movieTitle").on("click", function () {
+                        event.preventDefault()
+                        $(".movieTitle").off("click");
+                        type = "person";
+                        movie = false;
+                        $("#actorradio").prop("checked", true);
+                        $("#movieradio").prop("checked", false);
+                        console.log($(this).text());
+                        console.log(type + movie);
+                        searchTMDB($(this).text());
+                    });
+                });
             };
         });
     }); //End of OMDP API Ajax call
