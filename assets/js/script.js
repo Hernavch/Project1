@@ -42,7 +42,8 @@ $("#searchbtn").on("click", function(){
 
 
 
-//OMDP API Ajax call
+//OMDP API Ajax call for inital search. depending on the button chosen it will 
+// insert type, either movie or person. Then query the string entered.
     var search = $("#user-input").val();
 
     var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search + "&append_to_response=credits";
@@ -53,7 +54,6 @@ $("#searchbtn").on("click", function(){
         method:"GET"
 
     }).then(function(response) {
-        // console.log(response.results);
         var information= response.results;
        
         // For loop through the results 
@@ -66,10 +66,12 @@ $("#searchbtn").on("click", function(){
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
                 // for(var j=0; j < actorWorks.length; j++){
-                //   var actorMovie= actorWorks[j];
+                //   var actorMovie= actorWorks[j].original_title;
+                //   console.log("SOO CLOSE", actorMovie);
                 //   }
+                
+                // console.log("THIS ONE",actorWorks[0].original_title);
 
-                console.log(actorWorks);
                 // insert photos into carousel
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
@@ -80,6 +82,7 @@ $("#searchbtn").on("click", function(){
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
                   $("#carousel-"+ i).empty().append(actorImg);
 
+                  // Give label to images incuding Name and imdb Id numbers
                 var actorName=$("<label>");
                   actorName.attr("for", "actor-"+i);
                   actorName.attr("data-id", idNumber);
@@ -107,7 +110,7 @@ $("#searchbtn").on("click", function(){
                   posterImg.attr("alt","movie");
                   posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
                 $("#carousel-"+ i).empty().append(posterImg);
-
+                //  give labels to poster title
                 var posterName= $("<label>");
                   posterName.attr("for", "poster-"+i);
                   $("#carousel-"+ i).prepend(title);
@@ -116,35 +119,40 @@ $("#searchbtn").on("click", function(){
         }
     
 
-        //On click Function that is copied and appended into information card 
+        //On click of image Function that is copied and appended into information card 
         $(document.body).on("click", ".images", function(event){
-          event.preventDefault();
-
-
-          // Actor Ids from image
+          event.preventDefault();         
           var chosen= $(this);
           console.log(chosen);
+
+          // Actor Ids from image
           var idNumber = chosen.attr('data-id');
           var knownFor = chosen.attr('data-known');
-          // console.log(knownFor[0]);
 
-        //  Movie Ids from image
+
+          //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
           var movieNumber=chosen.attr("data-mID");
           
+          // Post image into new page under carousel
           $("#mainImage").empty().append(chosen.clone());
-          // If chosen image is Actor movie ===false 
-          if(movie===false){
+
+          // If statment to follow different paths to data depending on if person or movie 
+          if(movie===false){ //actor or actress chosen
             // console.log(idNumber);
             
-            // console.log(knownFor);                    
+            // console.log(knownFor);       
+            
+            // Internal AJAX call that pulls more information using actors imdb or idNumber to gather more info
             $.ajax({
               url:"https://api.themoviedb.org/3/person/"+ idNumber +"?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
               method:"GET"
       
             }).then(function(response2){
               // console.log(response2);
+
+              // Post data on the new page
               $("#summary").empty().append(response2.biography);
               $("#mainName").empty().append(response2.name);
               $("#dates").empty().append(response2.birthday);
@@ -155,12 +163,14 @@ $("#searchbtn").on("click", function(){
                });
 
 
-          }else{
+          }else{ // movie chosen
             
             $("#mainName").empty().append(movieName);
             $("#mainBio").empty().append(movieName)
             $("#summary").empty().append(movieSum);
             
+
+            // internal movie AJAX call. This api uses the movie imdb id to pull credits and cast
             $.ajax({
               url:"https://api.themoviedb.org/3/movie/"+ movieNumber +"/credits?api_key=f0af9ea07b16056057fccc931b462c5f",
               method:"GET"
