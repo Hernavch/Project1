@@ -45,7 +45,7 @@ $("#searchbtn").on("click", function(){
 //OMDP API Ajax call for inital search. depending on the button chosen it will 
 // insert type, either movie or person. Then query the string entered.
     var search = $("#user-input").val();
-
+   
     var queryURL = "https://api.themoviedb.org/3/search/"+ type +"?api_key=f0af9ea07b16056057fccc931b462c5f&query="+ search + "&append_to_response=credits";
     
 
@@ -55,6 +55,8 @@ $("#searchbtn").on("click", function(){
 
     }).then(function(response) {
         var information= response.results;
+        
+        
        
         // For loop through the results 
         for(var i=0;i < 12; i++){
@@ -65,10 +67,14 @@ $("#searchbtn").on("click", function(){
                 var idNumber= information[i].id;
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
-                // for(var j=0; j < actorWorks.length; j++){
-                //   var actorMovie= actorWorks[j].original_title;
-                //   console.log("SOO CLOSE", actorMovie);
-                //   }
+                                
+                  var title1= actorWorks[0].title;
+                  var title2=actorWorks[1].title;
+                  var title3=actorWorks[2].title;
+
+                  console.log(title1,title2,title3);
+
+
                 
                 // console.log("THIS ONE",actorWorks[0].original_title);
 
@@ -76,7 +82,7 @@ $("#searchbtn").on("click", function(){
                 var actorImg=$("<img>");
                   actorImg.attr("id","actor-"+ i);
                   actorImg.attr("data-id", idNumber);
-                  actorImg.attr("data-known", actorWorks);
+                  actorImg.attr("data-known", title1 +" , " + title2 +" , "+ title3);
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "people-placeholder");
                   actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
@@ -140,8 +146,8 @@ $("#searchbtn").on("click", function(){
 
           // If statment to follow different paths to data depending on if person or movie 
           if(movie===false){ //actor or actress chosen
-            // console.log(idNumber);
-            
+          $("#other").empty().append(knownFor);
+                    
             // console.log(knownFor);       
             
             // Internal AJAX call that pulls more information using actors imdb or idNumber to gather more info
@@ -150,12 +156,14 @@ $("#searchbtn").on("click", function(){
               method:"GET"
       
             }).then(function(response2){
-              // console.log(response2);
+              console.log(response2);
 
               // Post data on the new page
               $("#summary").empty().append(response2.biography);
               $("#mainName").empty().append(response2.name);
               $("#dates").empty().append(response2.birthday);
+              $("#mainBio").empty().append(response2.name);
+              $("#subBio").empty().append("Known For: ", response2.known_for_department);
               // console.log(knownFor[0]);
               // $("#other").prepend(knownFor);
 
