@@ -55,7 +55,7 @@ $("#searchbtn").on("click", function(){
 
     }).then(function(response) {
         var information= response.results;
-        
+        console.log(response);        
         
        
         // For loop through the results 
@@ -73,15 +73,12 @@ $("#searchbtn").on("click", function(){
                 var idNumber= information[i].id;
                 var actorPic=information[i].profile_path;
                 var actorWorks= information[i].known_for;
-                                
-                  var title1= actorWorks[0].title;
-                  var title2=actorWorks[1].title;
-                  var title3=actorWorks[2].title;
-
-                  console.log(title1,title2,title3);
-
-
-                
+                  //grabing info to pull from outer ajax   
+                  for (var f= 0; f< actorWorks.length; f++){
+                    var title = actorWorks[f].title;
+                    var posterImg1="https://image.tmdb.org/t/p/w92" +actorWorks[f].poster_path;
+                  }
+                                 
                 // console.log("THIS ONE",actorWorks[0].original_title);
 
                 // insert photos into carousel
@@ -89,6 +86,7 @@ $("#searchbtn").on("click", function(){
                   actorImg.attr("id","actor-"+ i);
                   actorImg.attr("data-id", idNumber);
                   actorImg.attr("data-known", title1 +" , " + title2 +" , "+ title3);
+                  // actorImg.attr("data-posterURL", )
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "people-placeholder");
                   actorImg.attr("src", "https://image.tmdb.org/t/p/w185/" + actorPic);
@@ -111,12 +109,18 @@ $("#searchbtn").on("click", function(){
                 var poster= information[i].poster_path;
                 var movieSum=information[i].overview;
                 var movieId=information[i].id;
+                var dateReleased=information[i].release_date;
+                var ratingVote= information[i].vote_average;
+
+                console.log(information[i]);
 
                 // insert image in carousel
                 var posterImg= $("<img>");
                   posterImg.attr("id", "poster-"+ i);
                   posterImg.attr("class", "images");
                   posterImg.attr("data-sum", movieSum);
+                  posterImg.attr("data-released", dateReleased);
+                  posterImg.attr("data-rate", ratingVote);
                   posterImg.attr("data-mID",movieId);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
@@ -145,8 +149,10 @@ $("#searchbtn").on("click", function(){
           //  Movie Ids from image
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
-          var movieNumber=chosen.attr("data-mID");
-          console.log(movieNumber);
+          var movieNumber=chosen.attr('data-mID');
+          var relDate=chosen.attr('data-released');
+          var rating=chosen.attr('data-rate');
+          
           
           // Post image into new page under carousel
           $("#mainImage").empty().append(chosen.clone());
@@ -171,9 +177,10 @@ $("#searchbtn").on("click", function(){
               // Post data on the new page
               $("#summary").empty().append(response2.biography);
               $("#mainName").empty().append(response2.name);
-              $("#dates").empty().append(response2.birthday);
               $("#mainBio").empty().append(response2.name);
               $("#subBio").empty().append("Known For: ", response2.known_for_department);
+              $("#dates").empty().append("Birthday: ", response2.birthday);
+              $("#rating").empty().append("Rating: "+ response2.popularity);
               // console.log(knownFor[0]);
               // $("#other").prepend(knownFor);
 
@@ -182,10 +189,14 @@ $("#searchbtn").on("click", function(){
 
 
           }else{ // movie chosen
-            
+            $("#summary").empty().append(movieSum);
             $("#mainName").empty().append(movieName);
             $("#mainBio").empty().append(movieName)
-            $("#summary").empty().append(movieSum);
+            $("#altBio").empty().append("Cast");
+            $("#subBio").empty().append("Directed By: ")
+            $("#dates").empty().append("Release Date:"+ relDate);
+            $("#rating").empty().append("Rating " + rating);
+
             
 
             // internal movie AJAX call. This api uses the movie imdb id to pull credits and cast
@@ -194,45 +205,46 @@ $("#searchbtn").on("click", function(){
               method:"GET"
 
             }).then(function(response3){
+              console.log(response3);
               var cast= response3.cast;
-              console.log(cast);
-               
+              var director= response3.crew[0].name;
+
+              $("#subBio").empty().append("Directed By: " + director);
+                      
+
               for(var l=0; l< response3.cast.length; l++){
                 //  console.log(cast[l].character);
                  var castPic=cast[l].profile_path;
-                 console.log(castPic);
+                 var castMem=cast[l].name;
+                //  console.log(castPic);
 
                  var castImg=$("<img>");
                 //  castImg.attr("src", 'http://image.tmdb.org/t/p/w185'+ cast[l].profile_path);
                  var castImgUrl= "https://image.tmdb.org/t/p/w92" + castPic;
-<<<<<<< HEAD
-                //  console.log(castImgUrl);
-=======
                  console.log(castImgUrl);
->>>>>>> master
                  castImg.attr("class", "images");
-                 castImg.attr("id", "cast-"+ l)
+                 castImg.attr("id", "cast-"+ l);
+                //  castImg.attr("alt src", )
                  castImg.attr("alt", "actor Image");
+                 castImg.attr("data-name", castMem);
                  castImg.attr("src", castImgUrl);
 
+                 console.log(castImg);
+
                  var castName= $("<label>");
-                  castName.attr("for", "poster-"+ l);
+                  castName.attr("for", "person-"+ l);
+                  castName.attr("data-name", castMem);
                   // $("#carousel-"+ i).prepend(title);
                  
 
 
-                 console.log(castImg);
-                //  var imageCastURL= cast
+                   //  var imageCastURL= cast
 
                  $("#altBio").empty().append("Cast List");
-<<<<<<< HEAD
-                 $("#altList").empty().append(castImg + "<br>");
-=======
-                 $("#altList").empty().append(castImg+ "<br>");
->>>>>>> master
+                //  $("#altList").empty().append(castImg + castMem);
                   
-                //  $("#cast").prepend(castImg);
-                //  $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");;
+                 $("#altList").append(castImg);
+                 $("#altList").append(cast[l].name+ "<br>" +" As:" + cast[l].character+ "<br> ");;
                }
                })
           };
