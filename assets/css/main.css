@@ -518,3 +518,29 @@ input[type=submit]:hover {
 	font-weight: 300;
 	letter-spacing: 2px;
 }
+
+#movieList {
+	display: flex;
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 50%;
+	flex-wrap: wrap;
+	font-family: 'Roboto';
+	line-height: 1.5;
+	letter-spacing: 1px;
+	font-weight: 300;
+}
+
+#movieList p {
+	margin-right: 10px;
+}
+
+.movieTitle {
+	text-decoration: underline;
+}
+
+.movieTitle:hover {
+	color: #005c74;
+	text-decoration: underline;
+	cursor: pointer;
+}
