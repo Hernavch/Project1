@@ -60,6 +60,12 @@ $("#searchbtn").on("click", function(){
        
         // For loop through the results 
         for(var i=0;i < 12; i++){
+        //   var carousel= ("<div>");
+        //     carousel.attr("class", "item");
+        //     carousel.attr("id", "carousel-"+ i);
+
+        // $("#partner-slider").append(carousel);
+           
             
              // IF STATEMENT distiguishing path to images,name etc
              if (type=== "person"){
@@ -85,7 +91,7 @@ $("#searchbtn").on("click", function(){
                   actorImg.attr("data-known", title1 +" , " + title2 +" , "+ title3);
                   actorImg.attr("class", "images");
                   actorImg.attr("alt", "people-placeholder");
-                  actorImg.attr("src", "http://image.tmdb.org/t/p/w185/" + actorPic);
+                  actorImg.attr("src", "https://image.tmdb.org/t/p/w185/" + actorPic);
                   $("#carousel-"+ i).empty().append(actorImg);
 
                   // Give label to images incuding Name and imdb Id numbers
@@ -114,7 +120,7 @@ $("#searchbtn").on("click", function(){
                   posterImg.attr("data-mID",movieId);
                   posterImg.attr("name", title);
                   posterImg.attr("alt","movie");
-                  posterImg.attr("src", "http://image.tmdb.org/t/p/w185/" + poster);
+                  posterImg.attr("src", "https://image.tmdb.org/t/p/w185/" + poster);
                 $("#carousel-"+ i).empty().append(posterImg);
                 //  give labels to poster title
                 var posterName= $("<label>");
@@ -140,13 +146,17 @@ $("#searchbtn").on("click", function(){
           var movieSum = chosen.attr('data-sum');
           var movieName=chosen.attr('name'); 
           var movieNumber=chosen.attr("data-mID");
+          console.log(movieNumber);
           
           // Post image into new page under carousel
           $("#mainImage").empty().append(chosen.clone());
+          
 
           // If statment to follow different paths to data depending on if person or movie 
           if(movie===false){ //actor or actress chosen
-          $("#other").empty().append(knownFor);
+          
+          $("#altBio").empty().append("Featured In");
+          $("#altList").empty().append(knownFor);
                     
             // console.log(knownFor);       
             
@@ -192,10 +202,29 @@ $("#searchbtn").on("click", function(){
                  var castPic=cast[l].profile_path;
                  console.log(castPic);
 
-               
-                  
+                 var castImg=$("<img>");
+                //  castImg.attr("src", 'http://image.tmdb.org/t/p/w185'+ cast[l].profile_path);
+                 var castImgUrl= "https://image.tmdb.org/t/p/w92" + castPic;
+                //  console.log(castImgUrl);
+                 castImg.attr("class", "images");
+                 castImg.attr("id", "cast-"+ l)
+                 castImg.attr("alt", "actor Image");
+                 castImg.attr("src", castImgUrl);
+
+                 var castName= $("<label>");
+                  castName.attr("for", "poster-"+ l);
+                  // $("#carousel-"+ i).prepend(title);
                  
-                 $("#cast").append("<img src='http://image.tmdb.org/t/p/w185'+ castPic><img>" + cast[l].name+" As:" + cast[l].character+ "<br> ");;
+
+
+                 console.log(castImg);
+                //  var imageCastURL= cast
+
+                 $("#altBio").empty().append("Cast List");
+                 $("#altList").empty().append(castImg + "<br>");
+                  
+                //  $("#cast").prepend(castImg);
+                //  $("#cast").append(cast[l].name+" As:" + cast[l].character+ "<br> ");;
                }
                })
           };
