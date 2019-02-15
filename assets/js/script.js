@@ -153,7 +153,7 @@ function searchTMDB(input) {
                 $("#streamResults").remove();
                 $("#utelly").remove();
                 // add Utelly
-                console.log("Addign the utelly button");
+                // console.log("Addign the utelly button");
                 if (!$("#streaming").length) {
                     $(".box-post").append("<button id=streaming>Find On Streaming Serice</button>");
                 }
@@ -172,17 +172,17 @@ function searchTMDB(input) {
                         // requires API key in a header
                         beforeSend: function(xhr){xhr.setRequestHeader("X-RapidAPI-Key", "75fb5da7dcmsh2589fdfd6e6eeacp1afe21jsn79fc57f99255");},
                     }).then(function (result) {
-                        console.log(queryURL);
-                        console.log(result);
-                        console.log(result.results[0].locations);
+                        // console.log(queryURL);
+                        // console.log(result);
+                        // console.log(result.results[0].locations);
                         var locations = result.results[0].locations;
                         
                         for (var i = 0; i < locations.length; i++) {
                             var service = locations[i].display_name;
                             service = service.replace(/\s/g, "");
                             $("#streamResults").append("<img src=assets/images/" + service + ".png />");
-                            console.log(locations[i].display_name);
-                            console.log(service);
+                            // console.log(locations[i].display_name);
+                            // console.log(service);
                         }
                     });
                 });
