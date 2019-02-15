@@ -2,8 +2,8 @@ $(document).ready(function () {
     // Partner slider
     $('#partner-slider').owlCarousel({
         loop: true,
+        startPosition: 0,
         margin: 10,
-        autoplay: true,
         responsive: {
             0: {
                 items: 1
@@ -17,6 +17,132 @@ $(document).ready(function () {
         }
     }); // end of #partner-slider
 }); // end of $(document).ready(function()
+
+/*----------------------------------------
+            Classy Spacer ;)
+-----------------------------------------*/
+
+// Code that manages user access to realtime database, where they can store their favorites.
+// Some of this code is WET, but it works.
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyBS3FwfutxUzA7if9tp2dTIz4tnheaPHlw",
+    authDomain: "wita-5c12e.firebaseapp.com",
+    databaseURL: "https://wita-5c12e.firebaseio.com",
+    projectId: "wita-5c12e",
+    storageBucket: "wita-5c12e.appspot.com",
+    messagingSenderId: "451967820384"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var loggedIn = false;
+
+// The user before they are logged in
+var user = {
+    key: "",
+    name: "",
+    favorites: []
+}
+
+function clearForm() {
+    $("#username").val("");
+    $("#password").val("");
+}
+
+function loadFavorites(key) {
+    database.ref('users/' + key).once("value", function(snapshot) {
+        user.favorites = snapshot.favorites;
+    })
+};
+
+// Sign Up database access
+$("#submitUp").on("click", function() {
+    event.preventDefault();        
+    // For serious: both of them
+    if ($("#usernameUp").val() != "" && $("#passwordUp").val () != "") {
+        var users = database.ref('users'); // pull the directory where the users will be
+        var search = users.orderByChild('username').equalTo($("#usernameUp").val()); // search keys for matching username
+        search.once("value", function(snapshot) {
+            if ($("#passwordUp").val() === $("#passConfirm").val()) {
+                if (!snapshot.exists()) {
+                    database.ref("users").push({
+                        username: $("#usernameUp").val(),
+                        password: $("#passwordUp").val(),
+                        favorites: []
+                    }).then(function(snap) {
+                        // local variables are stored for browser to reference user
+                        user.key = snap.key;
+                        user.name = $("#usernameUp").val();
+                        loggedIn = true;
+                    })
+                    loadFavorites(user.key);
+                    // $("#signForm").remove();
+                }
+                else {
+                    clearForm();
+                    $(".center2 p").text("That name has already been used. Please enter a different name.");
+                }
+            }
+            else {
+                $(".center2 p").text("Password confirmation did not match. Please re-enter.");
+            }
+        })
+    }
+    else {
+        clearForm();
+        $(".center2 p").text("Please enter both username and password.");
+        // $("#signForm").prepend("<p>Enter username and password,</p>");
+    }
+})
+
+// Sign In database access
+$("#submitIn").on("click", function() {
+    event.preventDefault();
+    // For serious: both of them
+    if ($("#usernameIn").val() != "" && $("#passwordIn").val () != "") {
+        var users = database.ref('users'); // pull the directory where the users will be
+        var search = users.orderByChild('username').equalTo($("#usernameIn").val()); // search keys for matching username
+        search.once("value", function(snapshot) {
+            if (snapshot.exists()) {
+                database.ref().child('users').orderByChild('username').equalTo($("#usernameIn").val()).once("value", function(snap) {
+                    // temporarily accept the information
+                    snap.forEach(function (data) {
+                        user.key = data.key;
+                        user.name = $("#usernameIn").val();
+                    });
+                    console.log(user);
+                    // look for password
+                    database.ref('users/' + user.key).once("value", function(snapshot) {
+                        // Is it right?
+                        if (snapshot.val().password === $("#passwordIn").val()) {
+                            console.log("log in success");
+                            loadFavorites(user.key);
+                            loggedIn = true;
+                            // $("#signForm").remove();
+                        }
+                        else {
+                            console.log("log in failure")
+                            clearForm();
+                            $(".center p").text("Username or password is incorrect. Please try again.");
+                        }
+                    });
+                });
+            }
+            else {
+                clearForm();
+                $(".center p").text("Username or password is incorrect. Please try again.");
+            };
+        });
+    }
+    else {
+        clearForm();
+        $(".center p").text("Please enter both username and password.");
+    };
+});
+
 
 /*----------------------------------------
             Classy Spacer ;)
@@ -123,6 +249,18 @@ function searchTMDB(input) {
                     $("#summary").empty().append(response2.biography);
                     $("#mainName").empty().append(response2.name);
                     $("#dates").empty().append(response2.birthday);
+                    console.log(loggedIn);
+                    if (loggedIn === true) {
+                        $("#addFav").html("<button id='favButton'>Add to favorites</button>");
+                        $("#addFav").on("click", function() {
+                            console.log($("#mainName").text());
+                            console.log(user.favorites);
+                            user.favorites.push($("#mainName").text());
+                            database.ref('users/' + user.key).update(snapshot);
+                            snapshot.favorites = user.favorites
+                        })
+                        console.log(user.favorites);
+                    }
                     // Call to tmdb to see what movies the actor has been in
                     $.ajax({
                         url: "https://api.themoviedb.org/3/person/" + idNumber + "/movie_credits?api_key=f0af9ea07b16056057fccc931b462c5f&language=en-US&adult=false",
@@ -183,6 +321,9 @@ function searchTMDB(input) {
                             $("#streamResults").append("<img src=assets/images/" + service + ".png />");
                             // console.log(locations[i].display_name);
                             // console.log(service);
+                        }
+                        if (!locations.length) {
+                            $("#streamResults").append("Unavailable on Amazon, Netlix, and iTunes.");
                         }
                     });
                 });
@@ -298,4 +439,6 @@ $(window).ready(function () {
         }
     }); //End of Login Window (sign up)
 }); // End of window ready for logins
+
+
 
