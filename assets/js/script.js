@@ -41,7 +41,7 @@ function searchTMDB(input) {
         type = "person"
     }
 
-    //OMDP API Ajax call
+    //TMDB API Ajax call
     var search = input;
     var queryURL = "https://api.themoviedb.org/3/search/" + type + "?api_key=f0af9ea07b16056057fccc931b462c5f&query=" + search + "&append_to_response=credits";
 
@@ -102,6 +102,11 @@ function searchTMDB(input) {
             }
         }
         $(document.body).on("click", ".images", function () {
+            // remove utelly
+            $("#streaming").remove();
+            $("#streamResults").remove();
+            $("#utelly").remove();
+            // set up necessary variables
             var chosen = $(this);
             var idNumber = chosen.attr('data-id');
             var movieSum = chosen.attr('data-sum');
@@ -143,6 +148,44 @@ function searchTMDB(input) {
                 });
             }
             else {
+                // remove utelly
+                $("#streaming").remove();
+                $("#streamResults").remove();
+                $("#utelly").remove();
+                // add Utelly
+                console.log("Addign the utelly button");
+                if (!$("#streaming").length) {
+                    $(".box-post").append("<button id=streaming>Find On Streaming Serice</button>");
+                }
+
+                $("#streaming").on("click", function() {
+                    $("#streaming").remove();
+                    $(".box-post").append("<div id=utelly></div>");
+                    $("#utelly").append("<h3>Available to stream on:</h3>");
+                    $("#utelly").css({"display": "flex", "flex-direction": "column", "flex-wrap": "wrap"});
+                    $("#utelly").append("<div id=streamResults></div>");
+                    $("#streamResults").css({"width": "100%","display": "flex", "flex-wrap": "wrap"});
+                    // ajax query for utelly
+                    $.ajax({
+                        url: "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=" + movieName + "&country=us",
+                        type: "GET",
+                        // requires API key in a header
+                        beforeSend: function(xhr){xhr.setRequestHeader("X-RapidAPI-Key", "75fb5da7dcmsh2589fdfd6e6eeacp1afe21jsn79fc57f99255");},
+                    }).then(function (result) {
+                        console.log(queryURL);
+                        console.log(result);
+                        console.log(result.results[0].locations);
+                        var locations = result.results[0].locations;
+                        
+                        for (var i = 0; i < locations.length; i++) {
+                            var service = locations[i].display_name;
+                            service = service.replace(/\s/g, "");
+                            $("#streamResults").append("<img src=assets/images/" + service + ".png />");
+                            console.log(locations[i].display_name);
+                            console.log(service);
+                        }
+                    });
+                });
                 $("#bioSyn").text("Synopsis");
                 $("#movAct").text("Cast");
                 $("#dates").empty().append(release);
@@ -171,7 +214,7 @@ function searchTMDB(input) {
                 });
             };
         });
-    }); //End of OMDP API Ajax call
+    }); //End of TMDB API Ajax call
 }; // End of on click event
 
 // Initialize tooltip component (radio buttons)
@@ -255,3 +298,4 @@ $(window).ready(function () {
         }
     }); //End of Login Window (sign up)
 }); // End of window ready for logins
+
